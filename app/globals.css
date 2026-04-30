@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme inline {
+  --font-display: 'Oswald', 'Arial Narrow', Arial, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --color-bg:      #F7F8FA;
+  --color-surface: #FFFFFF;
+  --color-border:  rgba(0, 0, 0, 0.09);
+  --color-text:    #0A0A0A;
+  --color-muted:   rgba(10, 10, 10, 0.42);
+  --color-field-a: #1B5E20;
+  --color-field-b: #1E6B24;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  background: #F7F8FA;
+  color: #0A0A0A;
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior: none;
+}
+
+/* Condensed utility */
+.font-display { font-family: 'Oswald', 'Arial Narrow', Arial, sans-serif; }
+
+/* Remove number input arrows */
+input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+input[type='number'] { -moz-appearance: textfield; }
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.12); border-radius: 2px; }
+
+/* Pick target pulse */
+@keyframes pickPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.65; transform: scale(0.96); }
+}
+.animate-pulse-target { animation: pickPulse 1.1s ease-in-out infinite; }

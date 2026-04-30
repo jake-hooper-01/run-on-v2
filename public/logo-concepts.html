@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Run-On — Logo Concepts</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue: #1565C0;
+      --blue-light: #1E88E5;
+      --blue-pale: #BBDEFB;
+      --black: #0a0a0a;
+      --card-bg: #111111;
+      --border: #222222;
+      --text-primary: #F5F5F5;
+      --text-secondary: #888888;
+      --text-muted: #555555;
+    }
+
+    body {
+      background: var(--black);
+      color: var(--text-primary);
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      padding: 60px 40px 80px;
+    }
+
+    /* ── Header ── */
+    .header {
+      max-width: 960px;
+      margin: 0 auto 60px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 32px;
+    }
+    .header-eyebrow {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--blue-light);
+      margin-bottom: 12px;
+    }
+    .header-title {
+      font-family: 'Oswald', sans-serif;
+      font-size: 36px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: var(--text-primary);
+      margin-bottom: 10px;
+    }
+    .header-sub {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      max-width: 560px;
+    }
+
+    /* ── Grid ── */
+    .grid {
+      max-width: 960px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+    }
+    .grid-item:last-child:nth-child(odd) {
+      grid-column: 1 / -1;
+      max-width: 460px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    /* ── Card ── */
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    /* ── Logo Stage ── */
+    .logo-stage {
+      width: 100%;
+      height: 280px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #131313;
+      position: relative;
+    }
+
+    /* ── Variants row ── */
+    .variants {
+      display: flex;
+      gap: 12px;
+      padding: 16px 20px;
+      border-top: 1px solid var(--border);
+      background: #0d0d0d;
+      align-items: center;
+    }
+    .variant-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-right: 4px;
+    }
+    .variant-pill {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      padding: 8px 16px;
+      flex: 1;
+      height: 52px;
+    }
+    .variant-pill.dark  { background: #0f0f0f; border: 1px solid #2a2a2a; }
+    .variant-pill.light { background: #F0F4F8; border: 1px solid #d0d8e0; }
+
+    /* ── Card meta ── */
+    .card-meta {
+      padding: 20px 20px 24px;
+    }
+    .concept-number {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--blue-light);
+      margin-bottom: 6px;
+    }
+    .concept-name {
+      font-family: 'Oswald', sans-serif;
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+    .concept-desc {
+      font-size: 12.5px;
+      color: var(--text-secondary);
+      line-height: 1.65;
+    }
+
+    /* ════════════════════════════════
+       CONCEPT 1 — Wordmark + Motion Mark
+    ════════════════════════════════ */
+    .c1-wrap {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      position: relative;
+    }
+    .c1-mark {
+      position: relative;
+      width: 54px;
+      height: 68px;
+      margin-right: 14px;
+      flex-shrink: 0;
+    }
+    .c1-text-block {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .c1-word {
+      font-family: 'Oswald', sans-serif;
+      font-weight: 700;
+      font-size: 46px;
+      line-height: 0.92;
+      letter-spacing: 0.08em;
+      color: #F5F5F5;
+      text-transform: uppercase;
+    }
+    .c1-word span {
+      color: var(--blue-light);
+    }
+    .c1-hyphen-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin: 2px 0;
+    }
+    .c1-rule {
+      flex: 1;
+      height: 2px;
+      background: linear-gradient(90deg, var(--blue) 0%, var(--blue-light) 60%, transparent 100%);
+      max-width: 140px;
+    }
+    .c1-sub {
+      font-family: 'Inter', sans-serif;
+      font-size: 8px;
+      font-weight: 600;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    /* light variant for c1 */
+    .c1-wrap.on-light .c1-word { color: #0f0f0f; }
+    .c1-wrap.on-light .c1-sub  { color: #888; }
+
+    /* ════════════════════════════════
+       CONCEPT 2 — Oval Monogram
+    ════════════════════════════════ */
+    .c2-wrap {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+    }
+    .c2-mono {
+      flex-shrink: 0;
+    }
+    .c2-wordmark {
+      display: flex;
+      flex-direction: column;
+    }
+    .c2-run {
+      font-family: 'Oswald', sans-serif;
+      font-weight: 700;
+      font-size: 38px;
+      letter-spacing: 0.12em;
+      color: #F5F5F5;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+    .c2-on {
+      font-family: 'Oswald', sans-serif;
+      font-weight: 300;
+      font-size: 38px;
+      letter-spacing: 0.12em;
+      color: var(--blue-light);
+      line-height: 1;
+      text-transform: uppercase;
+    }
+    .c2-wrap.on-light .c2-run { color: #111; }
+
+    /* ════════════════════════════════
+       CONCEPT 3 — Badge / Crest
+    ════════════════════════════════ */
+    .c3-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ════════════════════════════════
+       CONCEPT 4 — Typographic Stack
+    ════════════════════════════════ */
+    .c4-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0;
+      position: relative;
+    }
+    .c4-run {
+      font-family: 'Oswald', sans-serif;
+      font-weight: 700;
+      font-size: 72px;
+      line-height: 0.88;
+      letter-spacing: 0.04em;
+      color: #F5F5F5;
+      text-transform: uppercase;
+    }
+    .c4-rule-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 7px 0 5px;
+      width: 100%;
+    }
+    .c4-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--blue-light);
+      flex-shrink: 0;
+    }
+    .c4-hr {
+      flex: 1;
+      height: 1.5px;
+      background: linear-gradient(90deg, var(--blue) 0%, #1E88E530 100%);
+      max-width: 200px;
+    }
+    .c4-pos {
+      font-family: 'Inter', sans-serif;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--blue-light);
+    }
+    .c4-on-row {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+    }
+    .c4-on {
+      font-family: 'Oswald', sans-serif;
+      font-weight: 300;
+      font-size: 72px;
+      line-height: 0.88;
+      letter-spacing: 0.04em;
+      color: #F5F5F5;
+      text-transform: uppercase;
+    }
+    .c4-wrap.on-light .c4-run,
+    .c4-wrap.on-light .c4-on  { color: #0f0f0f; }
+    .c4-wrap.on-light .c4-pos  { color: var(--blue); }
+
+    /* ════════════════════════════════
+       CONCEPT 5 — Field Icon + Wordmark
+    ════════════════════════════════ */
+    .c5-wrap {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .c5-icon { flex-shrink: 0; }
+    .c5-wordmark {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .c5-run {
+      font-family: 'Oswald', sans-serif;
+      font-weight: 700;
+      font-size: 42px;
+      letter-spacing: 0.1em;
+      color: #F5F5F5;
+      line-height: 0.9;
+      text-transform: uppercase;
+    }
+    .c5-on {
+      font-family: 'Oswald', sans-serif;
+      font-weight: 700;
+      font-size: 42px;
+      letter-spacing: 0.1em;
+      color: var(--blue-light);
+      line-height: 0.9;
+      text-transform: uppercase;
+    }
+    .c5-tagline {
+      font-family: 'Inter', sans-serif;
+      font-size: 8.5px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-top: 7px;
+    }
+    .c5-wrap.on-light .c5-run  { color: #111; }
+    .c5-wrap.on-light .c5-on   { color: var(--blue); }
+    .c5-wrap.on-light .c5-tagline { color: #999; }
+
+    /* Badge on-light adjustments */
+    .badge-wrap.on-light text { fill: #111 !important; }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <div class="header-eyebrow">Brand Identity — Concepts</div>
+    <h1 class="header-title">RUN-ON</h1>
+    <p class="header-sub">Five distinct logo directions for the Run-On AFL team management app. Each concept rendered at full fidelity with dark and light variant previews.</p>
+  </header>
+
+  <div class="grid">
+
+    <!-- ─────────────────────────────────────
+         CONCEPT 1 — Wordmark with Motion Mark
+    ───────────────────────────────────────── -->
+    <div class="card">
+      <div class="logo-stage">
+        <!-- DARK STAGE -->
+        <div class="c1-wrap">
+          <!-- SVG motion mark: forward slash + speed lines -->
+          <svg class="c1-mark" viewBox="0 0 54 68" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Speed lines left -->
+            <line x1="0" y1="22" x2="28" y2="22" stroke="#1565C050" stroke-width="2" stroke-linecap="round"/>
+            <line x1="0" y1="34" x2="22" y2="34" stroke="#1565C070" stroke-width="2" stroke-linecap="round"/>
+            <line x1="0" y1="46" x2="18" y2="46" stroke="#1565C040" stroke-width="1.5" stroke-linecap="round"/>
+            <!-- Main forward slash / blade -->
+            <path d="M14 62 L40 6" stroke="#1E88E5" stroke-width="6" stroke-linecap="round"/>
+            <!-- Secondary slash — offset, lighter -->
+            <path d="M24 62 L50 6" stroke="#1565C0" stroke-width="3" stroke-linecap="round" opacity="0.55"/>
+            <!-- Tertiary slash -->
+            <path d="M32 62 L54 14" stroke="#1565C0" stroke-width="1.5" stroke-linecap="round" opacity="0.28"/>
+          </svg>
+
+          <div class="c1-text-block">
+            <div class="c1-word">RUN<span>—</span></div>
+            <div class="c1-word">ON</div>
+            <div class="c1-hyphen-row">
+              <div class="c1-rule"></div>
+            </div>
+            <div class="c1-sub">AFL Team Management</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Variants -->
+      <div class="variants">
+        <span class="variant-label">Variants</span>
+
+        <!-- DARK PILL -->
+        <div class="variant-pill dark">
+          <div class="c1-wrap" style="transform:scale(0.42); transform-origin:center; width:340px; height:100px; display:flex; align-items:center;">
+            <svg viewBox="0 0 54 68" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:54px;height:68px;flex-shrink:0;margin-right:14px">
+              <line x1="0" y1="22" x2="28" y2="22" stroke="#1565C050" stroke-width="2" stroke-linecap="round"/>
+              <line x1="0" y1="34" x2="22" y2="34" stroke="#1565C070" stroke-width="2" stroke-linecap="round"/>
+              <line x1="0" y1="46" x2="18" y2="46" stroke="#1565C040" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M14 62 L40 6" stroke="#1E88E5" stroke-width="6" stroke-linecap="round"/>
+              <path d="M24 62 L50 6" stroke="#1565C0" stroke-width="3" stroke-linecap="round" opacity="0.55"/>
+              <path d="M32 62 L54 14" stroke="#1565C0" stroke-width="1.5" stroke-linecap="round" opacity="0.28"/>
+            </svg>
+            <div class="c1-text-block">
+              <div class="c1-word">RUN<span style="color:#1E88E5">—</span></div>
+              <div class="c1-word">ON</div>
+              <div class="c1-hyphen-row"><div class="c1-rule"></div></div>
+              <div class="c1-sub">AFL Team Management</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- LIGHT PILL -->
+        <div class="variant-pill light">
+          <div class="c1-wrap on-light" style="transform:scale(0.42); transform-origin:center; width:340px; height:100px; display:flex; align-items:center;">
+            <svg viewBox="0 0 54 68" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:54px;height:68px;flex-shrink:0;margin-right:14px">
+              <line x1="0" y1="22" x2="28" y2="22" stroke="#1565C060" stroke-width="2" stroke-linecap="round"/>
+              <line x1="0" y1="34" x2="22" y2="34" stroke="#1565C090" stroke-width="2" stroke-linecap="round"/>
+              <line x1="0" y1="46" x2="18" y2="46" stroke="#1565C050" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M14 62 L40 6" stroke="#1565C0" stroke-width="6" stroke-linecap="round"/>
+              <path d="M24 62 L50 6" stroke="#1565C0" stroke-width="3" stroke-linecap="round" opacity="0.55"/>
+              <path d="M32 62 L54 14" stroke="#1565C0" stroke-width="1.5" stroke-linecap="round" opacity="0.28"/>
+            </svg>
+            <div class="c1-text-block">
+              <div class="c1-word" style="color:#0f0f0f">RUN<span style="color:#1565C0">—</span></div>
+              <div class="c1-word" style="color:#0f0f0f">ON</div>
+              <div class="c1-hyphen-row"><div class="c1-rule"></div></div>
+              <div class="c1-sub" style="color:#888">AFL Team Management</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-meta">
+        <div class="concept-number">Concept 01</div>
+        <div class="concept-name">Wordmark with Motion Mark</div>
+        <div class="concept-desc">Bold condensed wordmark paired with a kinetic triple-slash mark referencing speed and momentum. Feels like a player bursting through a pack. Works strong on dark kit and app headers.</div>
+      </div>
+    </div>
+
+    <!-- ─────────────────────────────────────
+         CONCEPT 2 — Oval-Integrated Monogram
+    ───────────────────────────────────────── -->
+    <div class="card">
+      <div class="logo-stage">
+        <div class="c2-wrap">
+          <!-- RO monogram with oval negative space -->
+          <svg class="c2-mono" width="90" height="90" viewBox="0 0 90 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Outer oval ring — AFL oval proportion -->
+            <ellipse cx="45" cy="45" rx="42" ry="33" stroke="#1565C0" stroke-width="3"/>
+            <!-- Inner oval — negative space -->
+            <ellipse cx="45" cy="45" rx="28" ry="19" fill="#131313"/>
+            <!-- Centre line (field centre square ref) -->
+            <line x1="45" y1="12" x2="45" y2="78" stroke="#1565C0" stroke-width="1.5" stroke-dasharray="3 4" opacity="0.4"/>
+            <!-- R letterform using paths within oval -->
+            <path d="M26 32 L26 58" stroke="#F5F5F5" stroke-width="3.5" stroke-linecap="round"/>
+            <path d="M26 32 Q38 32 38 39 Q38 46 26 46" stroke="#F5F5F5" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+            <path d="M30 46 L40 58" stroke="#F5F5F5" stroke-width="3.5" stroke-linecap="round"/>
+            <!-- O letterform -->
+            <ellipse cx="57" cy="45" rx="10" ry="13" stroke="#1E88E5" stroke-width="3.5" fill="none"/>
+          </svg>
+
+          <div class="c2-wordmark">
+            <div class="c2-run">RUN</div>
+            <div class="c2-on">ON</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Variants -->
+      <div class="variants">
+        <span class="variant-label">Variants</span>
+
+        <div class="variant-pill dark">
+          <div style="transform:scale(0.56); transform-origin:center; display:flex; align-items:center; gap:14px; width:240px; height:90px;">
+            <svg width="90" height="90" viewBox="0 0 90 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <ellipse cx="45" cy="45" rx="42" ry="33" stroke="#1565C0" stroke-width="3"/>
+              <ellipse cx="45" cy="45" rx="28" ry="19" fill="#0f0f0f"/>
+              <line x1="45" y1="12" x2="45" y2="78" stroke="#1565C0" stroke-width="1.5" stroke-dasharray="3 4" opacity="0.4"/>
+              <path d="M26 32 L26 58" stroke="#F5F5F5" stroke-width="3.5" stroke-linecap="round"/>
+              <path d="M26 32 Q38 32 38 39 Q38 46 26 46" stroke="#F5F5F5" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+              <path d="M30 46 L40 58" stroke="#F5F5F5" stroke-width="3.5" stroke-linecap="round"/>
+              <ellipse cx="57" cy="45" rx="10" ry="13" stroke="#1E88E5" stroke-width="3.5" fill="none"/>
+            </svg>
+            <div><div class="c2-run">RUN</div><div class="c2-on">ON</div></div>
+          </div>
+        </div>
+
+        <div class="variant-pill light">
+          <div style="transform:scale(0.56); transform-origin:center; display:flex; align-items:center; gap:14px; width:240px; height:90px;">
+            <svg width="90" height="90" viewBox="0 0 90 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <ellipse cx="45" cy="45" rx="42" ry="33" stroke="#1565C0" stroke-width="3"/>
+              <ellipse cx="45" cy="45" rx="28" ry="19" fill="#F0F4F8"/>
+              <line x1="45" y1="12" x2="45" y2="78" stroke="#1565C0" stroke-width="1.5" stroke-dasharray="3 4" opacity="0.5"/>
+              <path d="M26 32 L26 58" stroke="#111" stroke-width="3.5" stroke-linecap="round"/>
+              <path d="M26 32 Q38 32 38 39 Q38 46 26 46" stroke="#111" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+              <path d="M30 46 L40 58" stroke="#111" stroke-width="3.5" stroke-linecap="round"/>
+              <ellipse cx="57" cy="45" rx="10" ry="13" stroke="#1565C0" stroke-width="3.5" fill="none"/>
+            </svg>
+            <div><div class="c2-run" style="color:#111">RUN</div><div class="c2-on">ON</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-meta">
+        <div class="concept-number">Concept 02</div>
+        <div class="concept-name">Oval-Integrated Monogram</div>
+        <div class="concept-desc">An "RO" monogram drawn inside an AFL oval ring. The letterforms use the oval's negative space as their boundary — geometric and referential without being literal. Clean at small sizes.</div>
+      </div>
+    </div>
+
+    <!-- ─────────────────────────────────────
+         CONCEPT 3 — Badge / Crest Style
+    ───────────────────────────────────────── -->
+    <div class="card">
+      <div class="logo-stage">
+        <div class="c3-wrap">
+          <svg width="180" height="220" viewBox="0 0 180 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Badge / shield shape -->
+            <path d="M10 10 L170 10 L170 150 Q170 200 90 215 Q10 200 10 150 Z" fill="#1565C0"/>
+            <!-- Inner badge inset -->
+            <path d="M20 20 L160 20 L160 148 Q160 192 90 206 Q20 192 20 148 Z" fill="none" stroke="#1E88E5" stroke-width="1.5" opacity="0.6"/>
+            <!-- AFL Oval graphic — simplified, centred top of badge -->
+            <ellipse cx="90" cy="65" rx="34" ry="22" fill="none" stroke="white" stroke-width="2" opacity="0.55"/>
+            <!-- Centre circle -->
+            <circle cx="90" cy="65" r="8" fill="none" stroke="white" stroke-width="1.5" opacity="0.4"/>
+            <!-- Centre line -->
+            <line x1="90" y1="43" x2="90" y2="87" stroke="white" stroke-width="1.2" opacity="0.3"/>
+            <!-- RUN text -->
+            <text x="90" y="126"
+              font-family="'Oswald', sans-serif"
+              font-weight="700"
+              font-size="36"
+              letter-spacing="6"
+              text-anchor="middle"
+              fill="white">RUN</text>
+            <!-- thin rule -->
+            <line x1="30" y1="136" x2="150" y2="136" stroke="white" stroke-width="1" opacity="0.35"/>
+            <!-- ON text -->
+            <text x="90" y="165"
+              font-family="'Oswald', sans-serif"
+              font-weight="300"
+              font-size="30"
+              letter-spacing="14"
+              text-anchor="middle"
+              fill="white"
+              opacity="0.9">ON</text>
+            <!-- bottom micro text -->
+            <text x="90" y="195"
+              font-family="'Inter', sans-serif"
+              font-weight="600"
+              font-size="7"
+              letter-spacing="3"
+              text-anchor="middle"
+              fill="white"
+              opacity="0.45">TEAM MANAGEMENT</text>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Variants -->
+      <div class="variants">
+        <span class="variant-label">Variants</span>
+
+        <div class="variant-pill dark">
+          <svg width="60" height="74" viewBox="0 0 180 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 10 L170 10 L170 150 Q170 200 90 215 Q10 200 10 150 Z" fill="#1565C0"/>
+            <path d="M20 20 L160 20 L160 148 Q160 192 90 206 Q20 192 20 148 Z" fill="none" stroke="#1E88E5" stroke-width="1.5" opacity="0.6"/>
+            <ellipse cx="90" cy="65" rx="34" ry="22" fill="none" stroke="white" stroke-width="2" opacity="0.55"/>
+            <circle cx="90" cy="65" r="8" fill="none" stroke="white" stroke-width="1.5" opacity="0.4"/>
+            <line x1="90" y1="43" x2="90" y2="87" stroke="white" stroke-width="1.2" opacity="0.3"/>
+            <text x="90" y="126" font-family="'Oswald', sans-serif" font-weight="700" font-size="36" letter-spacing="6" text-anchor="middle" fill="white">RUN</text>
+            <line x1="30" y1="136" x2="150" y2="136" stroke="white" stroke-width="1" opacity="0.35"/>
+            <text x="90" y="165" font-family="'Oswald', sans-serif" font-weight="300" font-size="30" letter-spacing="14" text-anchor="middle" fill="white" opacity="0.9">ON</text>
+            <text x="90" y="195" font-family="'Inter', sans-serif" font-weight="600" font-size="7" letter-spacing="3" text-anchor="middle" fill="white" opacity="0.45">TEAM MANAGEMENT</text>
+          </svg>
+        </div>
+
+        <div class="variant-pill light">
+          <svg width="60" height="74" viewBox="0 0 180 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 10 L170 10 L170 150 Q170 200 90 215 Q10 200 10 150 Z" fill="#1565C0"/>
+            <path d="M20 20 L160 20 L160 148 Q160 192 90 206 Q20 192 20 148 Z" fill="none" stroke="#BBDEFB" stroke-width="1.5" opacity="0.7"/>
+            <ellipse cx="90" cy="65" rx="34" ry="22" fill="none" stroke="white" stroke-width="2" opacity="0.6"/>
+            <circle cx="90" cy="65" r="8" fill="none" stroke="white" stroke-width="1.5" opacity="0.45"/>
+            <line x1="90" y1="43" x2="90" y2="87" stroke="white" stroke-width="1.2" opacity="0.35"/>
+            <text x="90" y="126" font-family="'Oswald', sans-serif" font-weight="700" font-size="36" letter-spacing="6" text-anchor="middle" fill="white">RUN</text>
+            <line x1="30" y1="136" x2="150" y2="136" stroke="white" stroke-width="1" opacity="0.4"/>
+            <text x="90" y="165" font-family="'Oswald', sans-serif" font-weight="300" font-size="30" letter-spacing="14" text-anchor="middle" fill="white" opacity="0.9">ON</text>
+            <text x="90" y="195" font-family="'Inter', sans-serif" font-weight="600" font-size="7" letter-spacing="3" text-anchor="middle" fill="white" opacity="0.5">TEAM MANAGEMENT</text>
+          </svg>
+        </div>
+      </div>
+
+      <div class="card-meta">
+        <div class="concept-number">Concept 03</div>
+        <div class="concept-name">Badge / Crest Style</div>
+        <div class="concept-desc">A shield crest containing a simplified oval graphic above the wordmark. Stripped-back AFL club badge energy — works embroidered on a polo or as a solid app icon at any size.</div>
+      </div>
+    </div>
+
+    <!-- ─────────────────────────────────────
+         CONCEPT 4 — Typographic Stack
+    ───────────────────────────────────────── -->
+    <div class="card">
+      <div class="logo-stage">
+        <div class="c4-wrap">
+          <div class="c4-run">RUN</div>
+          <div class="c4-rule-wrap">
+            <div class="c4-dot"></div>
+            <div class="c4-hr"></div>
+            <div class="c4-pos">Position 1–22</div>
+          </div>
+          <div class="c4-on-row">
+            <div class="c4-on" style="font-weight:700; color:#1E88E5;">ON</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Variants -->
+      <div class="variants">
+        <span class="variant-label">Variants</span>
+
+        <div class="variant-pill dark">
+          <div style="transform:scale(0.52); transform-origin:center; width:260px; height:120px; display:flex; align-items:center; justify-content:center;">
+            <div class="c4-wrap">
+              <div class="c4-run">RUN</div>
+              <div class="c4-rule-wrap">
+                <div class="c4-dot"></div>
+                <div class="c4-hr"></div>
+                <div class="c4-pos">Position 1–22</div>
+              </div>
+              <div class="c4-on-row">
+                <div class="c4-on" style="font-weight:700; color:#1E88E5;">ON</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="variant-pill light">
+          <div style="transform:scale(0.52); transform-origin:center; width:260px; height:120px; display:flex; align-items:center; justify-content:center;">
+            <div class="c4-wrap on-light">
+              <div class="c4-run" style="color:#0f0f0f;">RUN</div>
+              <div class="c4-rule-wrap">
+                <div class="c4-dot" style="background:#1565C0;"></div>
+                <div class="c4-hr"></div>
+                <div class="c4-pos" style="color:#1565C0;">Position 1–22</div>
+              </div>
+              <div class="c4-on-row">
+                <div class="c4-on" style="font-weight:700; color:#1565C0;">ON</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-meta">
+        <div class="concept-number">Concept 04</div>
+        <div class="concept-name">Typographic Stack</div>
+        <div class="concept-desc">Pure editorial type — "RUN" heavy above, "ON" bold and accented below, separated by a dot-rule with the "Position 1–22" callout. All personality from letterforms alone. No mark needed.</div>
+      </div>
+    </div>
+
+    <!-- ─────────────────────────────────────
+         CONCEPT 5 — Field Icon + Wordmark
+    ───────────────────────────────────────── -->
+    <div class="card">
+      <div class="logo-stage">
+        <div class="c5-wrap">
+          <!-- Icon: aerial AFL oval, 3-line simplification -->
+          <svg class="c5-icon" width="76" height="100" viewBox="0 0 76 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Outer oval (AFL proportions ~165m x 135m -> simplified) -->
+            <ellipse cx="38" cy="50" rx="36" ry="48" fill="#1565C0"/>
+            <!-- Inner oval inset (margin line) -->
+            <ellipse cx="38" cy="50" rx="28" ry="39" fill="none" stroke="white" stroke-width="1.2" opacity="0.45"/>
+            <!-- Centre square (50m arc line) -->
+            <rect x="18" y="35" width="40" height="30" rx="2" fill="none" stroke="white" stroke-width="1" opacity="0.35"/>
+            <!-- Centre circle -->
+            <circle cx="38" cy="50" r="9" fill="none" stroke="white" stroke-width="1.5" opacity="0.7"/>
+            <!-- Centre dot -->
+            <circle cx="38" cy="50" r="2.5" fill="white" opacity="0.9"/>
+            <!-- Goal squares (top + bottom, very simple lines) -->
+            <rect x="28" y="2" width="20" height="7" rx="1" fill="none" stroke="white" stroke-width="1" opacity="0.4"/>
+            <rect x="28" y="91" width="20" height="7" rx="1" fill="none" stroke="white" stroke-width="1" opacity="0.4"/>
+          </svg>
+
+          <div class="c5-wordmark">
+            <div class="c5-run">RUN—</div>
+            <div class="c5-on">ON</div>
+            <div class="c5-tagline">AFL Team Management</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Variants -->
+      <div class="variants">
+        <span class="variant-label">Variants</span>
+
+        <div class="variant-pill dark">
+          <div style="transform:scale(0.55); transform-origin:center; display:flex; align-items:center; gap:16px; width:260px; height:100px;">
+            <svg width="52" height="68" viewBox="0 0 76 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <ellipse cx="38" cy="50" rx="36" ry="48" fill="#1565C0"/>
+              <ellipse cx="38" cy="50" rx="28" ry="39" fill="none" stroke="white" stroke-width="1.2" opacity="0.45"/>
+              <rect x="18" y="35" width="40" height="30" rx="2" fill="none" stroke="white" stroke-width="1" opacity="0.35"/>
+              <circle cx="38" cy="50" r="9" fill="none" stroke="white" stroke-width="1.5" opacity="0.7"/>
+              <circle cx="38" cy="50" r="2.5" fill="white" opacity="0.9"/>
+              <rect x="28" y="2" width="20" height="7" rx="1" fill="none" stroke="white" stroke-width="1" opacity="0.4"/>
+              <rect x="28" y="91" width="20" height="7" rx="1" fill="none" stroke="white" stroke-width="1" opacity="0.4"/>
+            </svg>
+            <div class="c5-wordmark">
+              <div class="c5-run">RUN—</div>
+              <div class="c5-on">ON</div>
+              <div class="c5-tagline">AFL Team Management</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="variant-pill light">
+          <div style="transform:scale(0.55); transform-origin:center; display:flex; align-items:center; gap:16px; width:260px; height:100px;">
+            <svg width="52" height="68" viewBox="0 0 76 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <ellipse cx="38" cy="50" rx="36" ry="48" fill="#1565C0"/>
+              <ellipse cx="38" cy="50" rx="28" ry="39" fill="none" stroke="white" stroke-width="1.2" opacity="0.5"/>
+              <rect x="18" y="35" width="40" height="30" rx="2" fill="none" stroke="white" stroke-width="1" opacity="0.4"/>
+              <circle cx="38" cy="50" r="9" fill="none" stroke="white" stroke-width="1.5" opacity="0.7"/>
+              <circle cx="38" cy="50" r="2.5" fill="white" opacity="0.95"/>
+              <rect x="28" y="2" width="20" height="7" rx="1" fill="none" stroke="white" stroke-width="1" opacity="0.45"/>
+              <rect x="28" y="91" width="20" height="7" rx="1" fill="none" stroke="white" stroke-width="1" opacity="0.45"/>
+            </svg>
+            <div class="c5-wordmark">
+              <div class="c5-run" style="color:#111;">RUN—</div>
+              <div class="c5-on" style="color:#1565C0;">ON</div>
+              <div class="c5-tagline" style="color:#888;">AFL Team Management</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-meta">
+        <div class="concept-number">Concept 05</div>
+        <div class="concept-name">Field Icon + Wordmark</div>
+        <div class="concept-desc">A top-down AFL oval icon — centre circle, centre square, goal squares — rendered in solid blue. Pairs with the stacked wordmark. The icon works alone as an app icon or favicon at any size.</div>
+      </div>
+    </div>
+
+  </div><!-- /.grid -->
+
+  <!-- Footer note -->
+  <div style="max-width:960px; margin:52px auto 0; border-top:1px solid #1e1e1e; padding-top:24px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;">
+    <div style="font-size:11px; color:#444; font-family:'Inter',sans-serif; letter-spacing:0.1em; text-transform:uppercase;">Run-On — Logo Concepts v1 &nbsp;·&nbsp; Hotbox Design &nbsp;·&nbsp; 2025</div>
+    <div style="font-size:11px; color:#333; font-family:'Inter',sans-serif;">Primary: #1565C0 &nbsp;|&nbsp; Typefaces: Oswald / Inter</div>
+  </div>
+
+</body>
+</html>

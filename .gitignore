@@ -1,0 +1,21 @@
+# dependencies
+node_modules/
+
+# Next.js
+.next/
+out/
+
+# Netlify
+.netlify/
+
+# env
+.env
+.env.local
+.env*.local
+
+# Claude
+.claude/
+
+# misc
+.DS_Store
+*.pem

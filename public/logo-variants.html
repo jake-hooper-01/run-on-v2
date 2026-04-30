@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Run-On — Concept Variants 01 &amp; 02</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --blue:       #1565C0;
+      --blue-light: #1E88E5;
+      --black:      #0a0a0a;
+      --card-bg:    #111111;
+      --border:     #222222;
+      --tp:         #F5F5F5;
+      --ts:         #888888;
+      --tm:         #555555;
+    }
+    body {
+      background: var(--black);
+      color: var(--tp);
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      padding: 60px 40px 80px;
+    }
+
+    /* Header */
+    .hdr { max-width: 960px; margin: 0 auto 52px; border-bottom: 1px solid var(--border); padding-bottom: 28px; }
+    .hdr-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--blue-light); margin-bottom: 10px; }
+    .hdr-title { font-family: 'Oswald', sans-serif; font-size: 32px; font-weight: 700; letter-spacing: 0.04em; margin-bottom: 8px; }
+    .hdr-sub { font-size: 13px; color: var(--ts); line-height: 1.65; max-width: 520px; }
+
+    /* Section */
+    .section { max-width: 960px; margin: 0 auto 56px; }
+    .section-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--tm); margin-bottom: 5px; }
+    .section-title {
+      font-family: 'Oswald', sans-serif; font-size: 19px; font-weight: 600;
+      letter-spacing: 0.06em; color: var(--tp); margin-bottom: 22px;
+      padding-bottom: 16px; border-bottom: 1px solid var(--border);
+    }
+    .section-title span { color: var(--blue-light); }
+
+    /* Grid */
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+
+    /* Card */
+    .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+
+    /* Stage */
+    .stage {
+      width: 100%; height: 260px;
+      display: flex; align-items: center; justify-content: center;
+      background: #131313;
+    }
+
+    /* Variants */
+    .variants {
+      display: flex; gap: 10px; padding: 13px 18px;
+      border-top: 1px solid var(--border); background: #0d0d0d;
+      align-items: center;
+    }
+    .vlabel { font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--tm); white-space: nowrap; margin-right: 2px; }
+    .vpill { display: flex; align-items: center; justify-content: center; border-radius: 8px; padding: 6px 12px; flex: 1; height: 52px; overflow: hidden; }
+    .vpill.dk { background: #0f0f0f; border: 1px solid #2a2a2a; }
+    .vpill.lt { background: #EEF2F7; border: 1px solid #ccd4e0; }
+
+    /* Meta */
+    .meta { padding: 18px 20px 22px; }
+    .vtag { font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--blue-light); margin-bottom: 5px; }
+    .vname { font-family: 'Oswald', sans-serif; font-size: 17px; font-weight: 600; letter-spacing: 0.06em; color: var(--tp); margin-bottom: 7px; }
+    .vdesc { font-size: 12px; color: var(--ts); line-height: 1.65; }
+  </style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hdr-eyebrow">Brand Identity — Variants</div>
+  <h1 class="hdr-title">CONCEPTS 01 &amp; 02 — FURTHER EXPLORATIONS</h1>
+  <p class="hdr-sub">Two additional directions for each of the shortlisted concepts — pushing the motion mark and oval monogram into new territory.</p>
+</header>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     CONCEPT 01 VARIANTS
+══════════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-eyebrow">Concept 01 — Motion Mark / Variants</div>
+  <div class="section-title">Wordmark with Motion Mark &nbsp;<span>/ Two New Directions</span></div>
+
+  <div class="grid">
+
+    <!-- ───────────────────────────────────────────────────────
+         1B — BLADE SPLIT
+         RUN + diagonal blade + ON as one tight horizontal lockup
+    ─────────────────────────────────────────────────────── -->
+    <div class="card">
+      <div class="stage">
+        <div style="display:flex; flex-direction:column; align-items:flex-start; gap:6px;">
+
+          <!-- Main lockup: RUN [blade] ON -->
+          <div style="display:flex; align-items:flex-end; line-height:1; gap:0;">
+            <span style="font-family:'Oswald',sans-serif; font-weight:700; font-size:64px; letter-spacing:0.04em; color:#F5F5F5; line-height:1;">RUN</span>
+
+            <!-- Blade mark — sits inline between RUN and ON -->
+            <svg width="36" height="72" viewBox="0 0 36 72" fill="none" xmlns="http://www.w3.org/2000/svg"
+              style="flex-shrink:0; margin:0 3px; align-self:stretch;">
+              <!-- Speed echo lines left of blade -->
+              <line x1="1" y1="18" x2="9"  y2="18" stroke="#1565C0" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/>
+              <line x1="1" y1="29" x2="7"  y2="29" stroke="#1565C0" stroke-width="1.5" stroke-linecap="round" opacity="0.35"/>
+              <line x1="1" y1="40" x2="5"  y2="40" stroke="#1565C0" stroke-width="1"   stroke-linecap="round" opacity="0.25"/>
+              <!-- Secondary blade echo -->
+              <line x1="18" y1="70" x2="33" y2="4" stroke="#1565C0" stroke-width="3" stroke-linecap="round" opacity="0.38"/>
+              <!-- Main blade -->
+              <line x1="10" y1="70" x2="25" y2="2" stroke="#1E88E5" stroke-width="7" stroke-linecap="round"/>
+            </svg>
+
+            <span style="font-family:'Oswald',sans-serif; font-weight:700; font-size:64px; letter-spacing:0.04em; color:#1E88E5; line-height:1;">ON</span>
+          </div>
+
+          <!-- Gradient rule + tagline -->
+          <div style="display:flex; align-items:center; gap:8px; padding-left:2px; width:100%;">
+            <div style="height:2px; width:180px; background:linear-gradient(90deg, var(--blue) 0%, #1E88E540 100%);"></div>
+          </div>
+          <div style="font-family:'Inter',sans-serif; font-size:8.5px; font-weight:600; letter-spacing:0.26em; text-transform:uppercase; color:#3a3a3a; padding-left:2px;">AFL Team Management</div>
+        </div>
+      </div>
+
+      <div class="variants">
+        <span class="vlabel">Variants</span>
+
+        <!-- Dark -->
+        <div class="vpill dk">
+          <div style="display:flex; align-items:flex-end; transform:scale(0.42); transform-origin:center; width:360px; height:80px; gap:0; flex-shrink:0;">
+            <span style="font-family:'Oswald',sans-serif; font-weight:700; font-size:64px; letter-spacing:0.04em; color:#F5F5F5; line-height:1;">RUN</span>
+            <svg width="36" height="72" viewBox="0 0 36 72" fill="none" style="flex-shrink:0; margin:0 3px;">
+              <line x1="1" y1="18" x2="9"  y2="18" stroke="#1565C0" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/>
+              <line x1="1" y1="29" x2="7"  y2="29" stroke="#1565C0" stroke-width="1.5" stroke-linecap="round" opacity="0.35"/>
+              <line x1="18" y1="70" x2="33" y2="4" stroke="#1565C0" stroke-width="3" stroke-linecap="round" opacity="0.38"/>
+              <line x1="10" y1="70" x2="25" y2="2" stroke="#1E88E5" stroke-width="7" stroke-linecap="round"/>
+            </svg>
+            <span style="font-family:'Oswald',sans-serif; font-weight:700; font-size:64px; letter-spacing:0.04em; color:#1E88E5; line-height:1;">ON</span>
+          </div>
+        </div>
+
+        <!-- Light -->
+        <div class="vpill lt">
+          <div style="display:flex; align-items:flex-end; transform:scale(0.42); transform-origin:center; width:360px; height:80px; gap:0; flex-shrink:0;">
+            <span style="font-family:'Oswald',sans-serif; font-weight:700; font-size:64px; letter-spacing:0.04em; color:#111; line-height:1;">RUN</span>
+            <svg width="36" height="72" viewBox="0 0 36 72" fill="none" style="flex-shrink:0; margin:0 3px;">
+              <line x1="1" y1="18" x2="9"  y2="18" stroke="#1565C0" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+              <line x1="1" y1="29" x2="7"  y2="29" stroke="#1565C0" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/>
+              <line x1="18" y1="70" x2="33" y2="4" stroke="#1565C0" stroke-width="3" stroke-linecap="round" opacity="0.45"/>
+              <line x1="10" y1="70" x2="25" y2="2" stroke="#1565C0" stroke-width="7" stroke-linecap="round"/>
+            </svg>
+            <span style="font-family:'Oswald',sans-serif; font-weight:700; font-size:64px; letter-spacing:0.04em; color:#1565C0; line-height:1;">ON</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="meta">
+        <div class="vtag">01B — Blade Split</div>
+        <div class="vname">Single-Line Blade Lockup</div>
+        <div class="vdesc">RUN and ON locked in a single horizontal row with a kinetic diagonal blade as separator. Reads as one word interrupted by motion. More compact and aggressive than the stacked version — strong on banners, headers, and single-colour print.</div>
+      </div>
+    </div>
+
+
+    <!-- ───────────────────────────────────────────────────────
+         1C — TRIPLE CHEVRON
+         Three forward-pointing chevrons building in weight,
+         referencing AFL guernsey stripes
+    ─────────────────────────────────────────────────────── -->
+    <div class="card">
+      <div class="stage">
+        <div style="display:flex; align-items:center; gap:24px;">
+
+          <!-- Chevron mark -->
+          <svg width="64" height="82" viewBox="0 0 64 82" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Chevron 1 — leftmost, most faded -->
+            <path d="M4 10 L26 41 L4 72" stroke="#1565C0" stroke-width="3.5" fill="none"
+              stroke-linecap="round" stroke-linejoin="round" opacity="0.35"/>
+            <!-- Chevron 2 — mid -->
+            <path d="M20 10 L42 41 L20 72" stroke="#1565C0" stroke-width="4.5" fill="none"
+              stroke-linecap="round" stroke-linejoin="round" opacity="0.68"/>
+            <!-- Chevron 3 — rightmost, full brightness -->
+            <path d="M36 10 L58 41 L36 72" stroke="#1E88E5" stroke-width="6" fill="none"
+              stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+
+          <!-- Stacked wordmark -->
+          <div style="display:flex; flex-direction:column; gap:0;">
+            <span style="font-family:'Oswald',sans-serif; font-weight:700; font-size:54px; letter-spacing:0.06em; color:#F5F5F5; line-height:0.9; text-transform:uppercase;">RUN</span>
+            <span style="font-family:'Oswald',sans-serif; font-weight:700; font-size:54px; letter-spacing:0.06em; color:#1E88E5; line-height:0.9; text-transform:uppercase;">ON</span>
+            <div style="height:2px; background:linear-gradient(90deg,#1565C0,transparent); width:100%; margin-top:8px;"></div>
+            <div style="font-family:'Inter',sans-serif; font-size:8px; font-weight:600; letter-spacing:0.24em; text-transform:uppercase; color:#3a3a3a; margin-top:5px;">Team Management</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="variants">
+        <span class="vlabel">Variants</span>
+
+        <!-- Dark -->
+        <div class="vpill dk">
+          <div style="display:flex; align-items:center; gap:12px; transform:scale(0.48); transform-origin:center; width:290px; height:90px; flex-shrink:0;">
+            <svg width="64" height="82" viewBox="0 0 64 82" fill="none">
+              <path d="M4 10 L26 41 L4 72" stroke="#1565C0" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.35"/>
+              <path d="M20 10 L42 41 L20 72" stroke="#1565C0" stroke-width="4.5" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.68"/>
+              <path d="M36 10 L58 41 L36 72" stroke="#1E88E5" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <div>
+              <div style="font-family:'Oswald',sans-serif; font-weight:700; font-size:54px; letter-spacing:0.06em; color:#F5F5F5; line-height:0.9;">RUN</div>
+              <div style="font-family:'Oswald',sans-serif; font-weight:700; font-size:54px; letter-spacing:0.06em; color:#1E88E5; line-height:0.9;">ON</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Light -->
+        <div class="vpill lt">
+          <div style="display:flex; align-items:center; gap:12px; transform:scale(0.48); transform-origin:center; width:290px; height:90px; flex-shrink:0;">
+            <svg width="64" height="82" viewBox="0 0 64 82" fill="none">
+              <path d="M4 10 L26 41 L4 72" stroke="#1565C0" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.35"/>
+              <path d="M20 10 L42 41 L20 72" stroke="#1565C0" stroke-width="4.5" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.7"/>
+              <path d="M36 10 L58 41 L36 72" stroke="#1565C0" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <div>
+              <div style="font-family:'Oswald',sans-serif; font-weight:700; font-size:54px; letter-spacing:0.06em; color:#111; line-height:0.9;">RUN</div>
+              <div style="font-family:'Oswald',sans-serif; font-weight:700; font-size:54px; letter-spacing:0.06em; color:#1565C0; line-height:0.9;">ON</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="meta">
+        <div class="vtag">01C — Triple Chevron</div>
+        <div class="vname">Cascading Chevron Mark</div>
+        <div class="vdesc">Three forward chevrons in escalating weight and brightness — organised where the slash version is raw. The structure references AFL guernsey stripe patterns and feels more at home on kit, signage, and print alongside the stacked wordmark.</div>
+      </div>
+    </div>
+
+  </div><!-- /.grid -->
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     CONCEPT 02 VARIANTS
+══════════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-eyebrow">Concept 02 — Oval Monogram / Variants</div>
+  <div class="section-title">Oval-Integrated Monogram &nbsp;<span>/ Two New Directions</span></div>
+
+  <div class="grid">
+
+    <!-- ───────────────────────────────────────────────────────
+         2B — PURE OVAL RING
+         The letterforms stripped out — pure aerial field geometry
+    ─────────────────────────────────────────────────────── -->
+    <div class="card">
+      <div class="stage">
+        <div style="display:flex; align-items:center; gap:28px;">
+
+          <!-- Oval mark — pure geometry, no letterforms -->
+          <svg width="110" height="82" viewBox="0 0 110 82" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Outer oval boundary -->
+            <ellipse cx="55" cy="41" rx="53" ry="38" stroke="#1565C0" stroke-width="4"/>
+            <!-- Goal squares top & bottom -->
+            <rect x="40" y="3"  width="30" height="7" rx="1.5" fill="none" stroke="#1565C0" stroke-width="1.5" opacity="0.42"/>
+            <rect x="40" y="72" width="30" height="7" rx="1.5" fill="none" stroke="#1565C0" stroke-width="1.5" opacity="0.42"/>
+            <!-- Centre square (50m approximate) -->
+            <rect x="33" y="26" width="44" height="30" rx="2" fill="none" stroke="#1565C0" stroke-width="1.5" opacity="0.3"/>
+            <!-- Centre circle -->
+            <circle cx="55" cy="41" r="11" fill="none" stroke="#1565C0" stroke-width="2.5" opacity="0.72"/>
+            <!-- Centre dot — solid fill, the anchor of the whole mark -->
+            <circle cx="55" cy="41" r="4"  fill="#1565C0"/>
+          </svg>
+
+          <!-- Wordmark -->
+          <div>
+            <div style="font-family:'Oswald',sans-serif; font-weight:700; font-size:48px; letter-spacing:0.08em; color:#F5F5F5; line-height:0.9; text-transform:uppercase;">RUN—</div>
+            <div style="font-family:'Oswald',sans-serif; font-weight:700; font-size:48px; letter-spacing:0.08em; color:#1565C0; line-height:0.9; text-transform:uppercase;">ON</div>
+            <div style="font-family:'Inter',sans-serif; font-size:8px; font-weight:600; letter-spacing:0.22em; text-transform:uppercase; color:#3a3a3a; margin-top:8px;">AFL Team Management</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="variants">
+        <span class="vlabel">Variants</span>
+
+        <!-- Dark -->
+        <div class="vpill dk">
+          <div style="display:flex; align-items:center; gap:14px; transform:scale(0.44); transform-origin:center; width:310px; height:90px; flex-shrink:0;">
+            <svg width="110" height="82" viewBox="0 0 110 82" fill="none">
+              <ellipse cx="55" cy="41" rx="53" ry="38" stroke="#1565C0" stroke-width="4"/>
+              <rect x="40" y="3"  width="30" height="7" rx="1.5" fill="none" stroke="#1565C0" stroke-width="1.5" opacity="0.42"/>
+              <rect x="40" y="72" width="30" height="7" rx="1.5" fill="none" stroke="#1565C0" stroke-width="1.5" opacity="0.42"/>
+              <rect x="33" y="26" width="44" height="30" rx="2" fill="none" stroke="#1565C0" stroke-width="1.5" opacity="0.3"/>
+              <circle cx="55" cy="41" r="11" fill="none" stroke="#1565C0" stroke-width="2.5" opacity="0.72"/>
+              <circle cx="55" cy="41" r="4"  fill="#1565C0"/>
+            </svg>
+            <div>
+              <div style="font-family:'Oswald',sans-serif; font-weight:700; font-size:48px; letter-spacing:0.08em; color:#F5F5F5; line-height:0.9;">RUN—</div>
+              <div style="font-family:'Oswald',sans-serif; font-weight:700; font-size:48px; letter-spacing:0.08em; color:#1565C0; line-height:0.9;">ON</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Light -->
+        <div class="vpill lt">
+          <div style="display:flex; align-items:center; gap:14px; transform:scale(0.44); transform-origin:center; width:310px; height:90px; flex-shrink:0;">
+            <svg width="110" height="82" viewBox="0 0 110 82" fill="none">
+              <ellipse cx="55" cy="41" rx="53" ry="38" stroke="#1565C0" stroke-width="4"/>
+              <rect x="40" y="3"  width="30" height="7" rx="1.5" fill="none" stroke="#1565C0" stroke-width="1.5" opacity="0.5"/>
+              <rect x="40" y="72" width="30" height="7" rx="1.5" fill="none" stroke="#1565C0" stroke-width="1.5" opacity="0.5"/>
+              <rect x="33" y="26" width="44" height="30" rx="2" fill="none" stroke="#1565C0" stroke-width="1.5" opacity="0.35"/>
+              <circle cx="55" cy="41" r="11" fill="none" stroke="#1565C0" stroke-width="2.5" opacity="0.78"/>
+              <circle cx="55" cy="41" r="4"  fill="#1565C0"/>
+            </svg>
+            <div>
+              <div style="font-family:'Oswald',sans-serif; font-weight:700; font-size:48px; letter-spacing:0.08em; color:#111; line-height:0.9;">RUN—</div>
+              <div style="font-family:'Oswald',sans-serif; font-weight:700; font-size:48px; letter-spacing:0.08em; color:#1565C0; line-height:0.9;">ON</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="meta">
+        <div class="vtag">02B — Oval Ring</div>
+        <div class="vname">Pure Oval Geometry</div>
+        <div class="vdesc">The RO letterforms stripped entirely — just the field as a mark. Outer oval, goal squares, centre square, centre circle, and the solid dot at the heart of it all. More universal than the monogram. Scales cleanly to 16px and still reads as a football field.</div>
+      </div>
+    </div>
+
+
+    <!-- ───────────────────────────────────────────────────────
+         2C — COIN BADGE
+         Circle badge with oval as the central graphic device.
+         RUN above · oval · ON below. Ships standalone as app icon.
+    ─────────────────────────────────────────────────────── -->
+    <div class="card">
+      <div class="stage">
+        <svg width="168" height="168" viewBox="0 0 168 168" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Circle badge fill -->
+          <circle cx="84" cy="84" r="80" fill="#1565C0"/>
+          <!-- Outer rim -->
+          <circle cx="84" cy="84" r="74" fill="none" stroke="rgba(255,255,255,0.16)" stroke-width="1.5"/>
+          <!-- Compass tick marks -->
+          <line x1="84" y1="6"   x2="84" y2="14"  stroke="white" stroke-width="1.5" opacity="0.25"/>
+          <line x1="84" y1="154" x2="84" y2="162" stroke="white" stroke-width="1.5" opacity="0.25"/>
+          <line x1="6"  y1="84"  x2="14"  y2="84" stroke="white" stroke-width="1.5" opacity="0.25"/>
+          <line x1="154" y1="84" x2="162" y2="84" stroke="white" stroke-width="1.5" opacity="0.25"/>
+
+          <!-- RUN — above the oval -->
+          <text x="84" y="41"
+            font-family="'Oswald', 'Arial Narrow', Arial, sans-serif"
+            font-weight="700" font-size="23" letter-spacing="7"
+            text-anchor="middle" fill="white">RUN</text>
+
+          <!-- AFL Oval graphic, centred -->
+          <ellipse cx="84" cy="88" rx="50" ry="32" fill="none" stroke="white" stroke-width="2.5"/>
+          <!-- Inner margin oval -->
+          <ellipse cx="84" cy="88" rx="40" ry="23" fill="none" stroke="white" stroke-width="1" opacity="0.35"/>
+          <!-- Centre square -->
+          <rect x="68" y="76" width="32" height="24" rx="2" fill="none" stroke="white" stroke-width="1" opacity="0.3"/>
+          <!-- Centre circle -->
+          <circle cx="84" cy="88" r="9" fill="none" stroke="white" stroke-width="1.5" opacity="0.68"/>
+          <!-- Centre dot -->
+          <circle cx="84" cy="88" r="2.8" fill="white" opacity="0.9"/>
+          <!-- Goal squares top & bottom (inside oval) -->
+          <rect x="71" y="56"  width="26" height="7" rx="1.5" fill="none" stroke="white" stroke-width="1" opacity="0.35"/>
+          <rect x="71" y="113" width="26" height="7" rx="1.5" fill="none" stroke="white" stroke-width="1" opacity="0.35"/>
+
+          <!-- ON — below the oval -->
+          <text x="84" y="141"
+            font-family="'Oswald', 'Arial Narrow', Arial, sans-serif"
+            font-weight="300" font-size="23" letter-spacing="9"
+            text-anchor="middle" fill="white" opacity="0.88">ON</text>
+        </svg>
+      </div>
+
+      <div class="variants">
+        <span class="vlabel">Variants</span>
+
+        <!-- Dark pill: default blue badge -->
+        <div class="vpill dk">
+          <svg width="50" height="50" viewBox="0 0 168 168" fill="none">
+            <circle cx="84" cy="84" r="80" fill="#1565C0"/>
+            <circle cx="84" cy="84" r="74" fill="none" stroke="rgba(255,255,255,0.16)" stroke-width="1.5"/>
+            <text x="84" y="41" font-family="'Oswald', Arial" font-weight="700" font-size="23" letter-spacing="7" text-anchor="middle" fill="white">RUN</text>
+            <ellipse cx="84" cy="88" rx="50" ry="32" fill="none" stroke="white" stroke-width="2.5"/>
+            <ellipse cx="84" cy="88" rx="40" ry="23" fill="none" stroke="white" stroke-width="1" opacity="0.35"/>
+            <circle cx="84" cy="88" r="9" fill="none" stroke="white" stroke-width="1.5" opacity="0.68"/>
+            <circle cx="84" cy="88" r="2.8" fill="white" opacity="0.9"/>
+            <rect x="71" y="56"  width="26" height="7" rx="1.5" fill="none" stroke="white" stroke-width="1" opacity="0.35"/>
+            <rect x="71" y="113" width="26" height="7" rx="1.5" fill="none" stroke="white" stroke-width="1" opacity="0.35"/>
+            <text x="84" y="141" font-family="'Oswald', Arial" font-weight="300" font-size="23" letter-spacing="9" text-anchor="middle" fill="white" opacity="0.88">ON</text>
+          </svg>
+        </div>
+
+        <!-- Light pill: dark navy badge on light bg -->
+        <div class="vpill lt">
+          <svg width="50" height="50" viewBox="0 0 168 168" fill="none">
+            <circle cx="84" cy="84" r="80" fill="#0d1b2a"/>
+            <circle cx="84" cy="84" r="74" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1.5"/>
+            <text x="84" y="41" font-family="'Oswald', Arial" font-weight="700" font-size="23" letter-spacing="7" text-anchor="middle" fill="white">RUN</text>
+            <ellipse cx="84" cy="88" rx="50" ry="32" fill="none" stroke="white" stroke-width="2.5"/>
+            <ellipse cx="84" cy="88" rx="40" ry="23" fill="none" stroke="white" stroke-width="1" opacity="0.35"/>
+            <circle cx="84" cy="88" r="9" fill="none" stroke="white" stroke-width="1.5" opacity="0.68"/>
+            <circle cx="84" cy="88" r="2.8" fill="white" opacity="0.9"/>
+            <rect x="71" y="56"  width="26" height="7" rx="1.5" fill="none" stroke="white" stroke-width="1" opacity="0.35"/>
+            <rect x="71" y="113" width="26" height="7" rx="1.5" fill="none" stroke="white" stroke-width="1" opacity="0.35"/>
+            <text x="84" y="141" font-family="'Oswald', Arial" font-weight="300" font-size="23" letter-spacing="9" text-anchor="middle" fill="white" opacity="0.88">ON</text>
+          </svg>
+        </div>
+      </div>
+
+      <div class="meta">
+        <div class="vtag">02C — Coin Badge</div>
+        <div class="vname">Round Stamp Mark</div>
+        <div class="vdesc">"RUN" and "ON" flanking an AFL oval inside a circular badge — like a coin, medal, or club stamp. No wordmark needed alongside it. Ships directly as the app icon and favicon. Expands to a full lockup when space allows.</div>
+      </div>
+    </div>
+
+  </div><!-- /.grid -->
+</div>
+
+
+<!-- Footer -->
+<div style="max-width:960px; margin:52px auto 0; border-top:1px solid #1e1e1e; padding-top:22px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;">
+  <div style="font-size:11px; color:#333; font-family:'Inter',sans-serif; letter-spacing:0.1em; text-transform:uppercase;">Run-On — Variants v1 &nbsp;·&nbsp; Hotbox Design &nbsp;·&nbsp; 2025</div>
+  <div style="font-size:11px; color:#2a2a2a; font-family:'Inter',sans-serif;">Primary: #1565C0 &nbsp;|&nbsp; Typefaces: Oswald / Inter</div>
+</div>
+
+</body>
+</html>
