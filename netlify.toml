@@ -1,3 +1,8 @@
 [build]
   command = "npm run build"
-  publish = ".next"
+  publish = "out"
+
+[[redirects]]
+  from = "/lineup/*"
+  to = "/lineup/local/index.html"
+  status = 200
