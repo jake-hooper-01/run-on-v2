@@ -6,6 +6,8 @@ import { Player, Lineup } from './types'
 interface AppStore {
   squad: Player[]
   lineups: Lineup[]
+  hasSeenWelcome: boolean
+  _hasHydrated: boolean
   addPlayer: (p: Omit<Player, 'id'>) => void
   updatePlayer: (id: string, updates: Partial<Omit<Player, 'id'>>) => void
   deletePlayer: (id: string) => void
@@ -16,6 +18,8 @@ interface AppStore {
   assignPosition: (lineupId: string, position: string, playerId: string) => void
   clearPosition: (lineupId: string, position: string) => void
   clearAllPositions: (lineupId: string) => void
+  setHasSeenWelcome: () => void
+  _setHasHydrated: () => void
 }
 
 export const useStore = create<AppStore>()(
@@ -23,6 +27,11 @@ export const useStore = create<AppStore>()(
     (set) => ({
       squad: [],
       lineups: [],
+      hasSeenWelcome: false,
+      _hasHydrated: false,
+
+      setHasSeenWelcome: () => set({ hasSeenWelcome: true }),
+      _setHasHydrated: () => set({ _hasHydrated: true }),
 
       addPlayer: (p) => {
         const id = crypto.randomUUID()
@@ -119,6 +128,14 @@ export const useStore = create<AppStore>()(
     {
       name: 'run-on-v2-data',
       skipHydration: true,
+      partialize: (state) => ({
+        squad: state.squad,
+        lineups: state.lineups,
+        hasSeenWelcome: state.hasSeenWelcome,
+      }),
+      onRehydrateStorage: () => (state) => {
+        state?._setHasHydrated()
+      },
       storage: {
         getItem: (name) => {
           try { return JSON.parse(localStorage.getItem(name) ?? 'null') }

@@ -1,10 +1,12 @@
 'use client'
 import { useState } from 'react'
 import Link from 'next/link'
-import { Plus, Users, Trash2, ChevronRight, Calendar, MapPin, Copy } from 'lucide-react'
+import { Plus, Users, Trash2, ChevronRight, Calendar, MapPin, Copy, HelpCircle } from 'lucide-react'
 import { useStore } from '@/lib/store'
 import { Lineup, isLightColour, formatTime, formatMatchDate } from '@/lib/types'
 import { useRouter } from 'next/navigation'
+import WelcomeScreen from '@/components/WelcomeScreen'
+import Walkthrough from '@/components/Walkthrough'
 
 function LineupCard({ lineup, onDelete, onDuplicate }: { lineup: Lineup; onDelete: () => void; onDuplicate: () => void }) {
   const [confirm, setConfirm] = useState(false)
@@ -127,9 +129,12 @@ export default function HomePage() {
   const { lineups, deleteLineup, duplicateLineup } = useStore()
   const router = useRouter()
   const sorted = [...lineups].sort((a, b) => b.createdAt - a.createdAt)
+  const [walkthroughOpen, setWalkthroughOpen] = useState(false)
 
   return (
     <div className="min-h-screen bg-[#F7F8FA]">
+      <WelcomeScreen onShowWalkthrough={() => setWalkthroughOpen(true)} />
+      {walkthroughOpen && <Walkthrough onClose={() => setWalkthroughOpen(false)} />}
 
       {/* Header */}
       <div className="bg-white border-b border-[rgba(0,0,0,0.08)] sticky top-0 z-10">
@@ -150,13 +155,22 @@ export default function HomePage() {
             <p className="text-xs text-[rgba(0,0,0,0.38)] mt-0.5 font-medium">Team Management</p>
           </div>
 
-          <Link
-            href="/squad"
-            className="flex items-center gap-1.5 px-3 py-2 rounded-xl border border-[rgba(0,0,0,0.12)] text-[rgba(0,0,0,0.55)] hover:text-[#0a0a0a] hover:border-[rgba(0,0,0,0.25)] text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer"
-          >
-            <Users size={13} />
-            Squad
-          </Link>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setWalkthroughOpen(true)}
+              title="How it works"
+              className="flex items-center justify-center w-9 h-9 rounded-xl border border-[rgba(0,0,0,0.12)] text-[rgba(0,0,0,0.4)] hover:text-[#0a0a0a] hover:border-[rgba(0,0,0,0.25)] transition-colors cursor-pointer"
+            >
+              <HelpCircle size={16} />
+            </button>
+            <Link
+              href="/squad"
+              className="flex items-center gap-1.5 px-3 py-2 rounded-xl border border-[rgba(0,0,0,0.12)] text-[rgba(0,0,0,0.55)] hover:text-[#0a0a0a] hover:border-[rgba(0,0,0,0.25)] text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer"
+            >
+              <Users size={13} />
+              Squad
+            </Link>
+          </div>
         </div>
       </div>
 
