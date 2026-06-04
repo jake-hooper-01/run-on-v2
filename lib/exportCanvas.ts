@@ -307,8 +307,12 @@ function drawOval(
   ctx.arc(cx, cy, 6, 0, Math.PI * 2)
   ctx.fill()
 
-  // Goal squares — width matches the post span (cx ± gp), height ≈ real AFL 9×9m square
-  const gsW = rx * 0.10
+  // Goal squares — span between the two inner goal posts
+  const gp_i    = rx * 0.048   // inner goal post half-span
+  const gp_o    = rx * 0.112   // behind post half-span
+  const p_tall  = ry * 0.069   // inner post protrusion above/below oval
+  const p_short = ry * 0.025   // behind post protrusion
+  const gsW = gp_i * 2
   const gsH = ry * 0.089
   ctx.fillStyle = 'rgba(255,255,255,0.07)'
   ctx.strokeStyle = 'rgba(255,255,255,0.55)'
@@ -318,20 +322,25 @@ function drawOval(
   ctx.fillRect(cx - gsW / 2, cy + ry - gsH - 3, gsW, gsH)
   ctx.strokeRect(cx - gsW / 2, cy + ry - gsH - 3, gsW, gsH)
 
-  // Goal posts
-  const gp = rx * 0.05
-  ctx.strokeStyle = 'rgba(255,255,255,0.78)'
-  ctx.lineWidth = 3.5
+  // Goal posts — 4 per end: 2 taller inner (goal) + 2 shorter outer (behind)
   ctx.lineCap = 'round'
+  // Inner goal posts (taller, bolder)
+  ctx.strokeStyle = 'rgba(255,255,255,0.85)'
+  ctx.lineWidth = 4.5
   ctx.beginPath()
-  ctx.moveTo(cx - gp, cy - ry - 28); ctx.lineTo(cx - gp, cy - ry + 3)
-  ctx.moveTo(cx,      cy - ry - 40); ctx.lineTo(cx,      cy - ry + 3)
-  ctx.moveTo(cx + gp, cy - ry - 28); ctx.lineTo(cx + gp, cy - ry + 3)
+  ctx.moveTo(cx - gp_i, cy - ry - p_tall);  ctx.lineTo(cx - gp_i, cy - ry)
+  ctx.moveTo(cx + gp_i, cy - ry - p_tall);  ctx.lineTo(cx + gp_i, cy - ry)
+  ctx.moveTo(cx - gp_i, cy + ry + p_tall);  ctx.lineTo(cx - gp_i, cy + ry)
+  ctx.moveTo(cx + gp_i, cy + ry + p_tall);  ctx.lineTo(cx + gp_i, cy + ry)
   ctx.stroke()
+  // Behind posts (shorter, lighter)
+  ctx.strokeStyle = 'rgba(255,255,255,0.52)'
+  ctx.lineWidth = 3
   ctx.beginPath()
-  ctx.moveTo(cx - gp, cy + ry + 28); ctx.lineTo(cx - gp, cy + ry - 3)
-  ctx.moveTo(cx,      cy + ry + 40); ctx.lineTo(cx,      cy + ry - 3)
-  ctx.moveTo(cx + gp, cy + ry + 28); ctx.lineTo(cx + gp, cy + ry - 3)
+  ctx.moveTo(cx - gp_o, cy - ry - p_short); ctx.lineTo(cx - gp_o, cy - ry)
+  ctx.moveTo(cx + gp_o, cy - ry - p_short); ctx.lineTo(cx + gp_o, cy - ry)
+  ctx.moveTo(cx - gp_o, cy + ry + p_short); ctx.lineTo(cx - gp_o, cy + ry)
+  ctx.moveTo(cx + gp_o, cy + ry + p_short); ctx.lineTo(cx + gp_o, cy + ry)
   ctx.stroke()
   ctx.lineCap = 'butt'
 }

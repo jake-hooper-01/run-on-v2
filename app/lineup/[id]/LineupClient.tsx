@@ -143,7 +143,7 @@ export default function LineupPage() {
   }
 
   return (
-    <div className="flex flex-col h-[100dvh] overflow-hidden" style={{ background: '#1B5E20' }}>
+    <div className="page-rise flex flex-col h-[100dvh] overflow-hidden" style={{ background: '#1B5E20' }}>
 
       {/* ── Top bar ── */}
       <div

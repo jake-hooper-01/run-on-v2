@@ -20,7 +20,7 @@ function LineupCard({
   const dateStr = formatMatchDate(lineup.date)
 
   return (
-    <div className={`group relative rounded-2xl bg-white overflow-hidden transition-all ${
+    <div className={`group relative rounded-2xl bg-white overflow-hidden transition-all duration-150 active:scale-[0.985] ${
       highlight
         ? 'shadow-[0_0_0_2px_rgba(30,136,229,0.45),0_4px_20px_rgba(0,0,0,0.1)] border border-[rgba(30,136,229,0.3)]'
         : 'border border-[rgba(0,0,0,0.08)] shadow-[0_2px_12px_rgba(0,0,0,0.06)] hover:shadow-[0_4px_20px_rgba(0,0,0,0.1)]'
@@ -164,7 +164,7 @@ export default function HomePage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#F7F8FA]">
+    <div className="page-fade min-h-screen bg-[#F7F8FA]">
       <WelcomeScreen onShowWalkthrough={() => setWalkthroughOpen(true)} />
       {walkthroughOpen && <Walkthrough onClose={() => setWalkthroughOpen(false)} />}
       {feedbackOpen && <FeedbackModal onClose={() => setFeedbackOpen(false)} />}

@@ -48,3 +48,15 @@ input[type='number'] { -moz-appearance: textfield; }
   50% { opacity: 0.65; transform: scale(0.96); }
 }
 .animate-pulse-target { animation: pickPulse 1.1s ease-in-out infinite; }
+
+/* Page transitions */
+@keyframes pageRise {
+  from { opacity: 0; transform: translateY(22px) scale(0.991); }
+  to   { opacity: 1; transform: translateY(0)    scale(1); }
+}
+@keyframes pageFade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+.page-rise { animation: pageRise 400ms cubic-bezier(0.16, 1, 0.3, 1) both; }
+.page-fade { animation: pageFade 280ms ease-out both; }

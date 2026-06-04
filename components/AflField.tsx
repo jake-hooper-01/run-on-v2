@@ -217,19 +217,21 @@ function FieldMarkings() {
       {/* Centre dot */}
       <circle cx="280" cy="390" r="5" fill="rgba(255,255,255,0.75)" />
 
-      {/* Goal squares */}
-      <rect x="266" y="30" width="28" height="36" stroke="rgba(255,255,255,0.55)" strokeWidth="1.5" fill="rgba(255,255,255,0.07)" />
-      <rect x="266" y="714" width="28" height="36" stroke="rgba(255,255,255,0.55)" strokeWidth="1.5" fill="rgba(255,255,255,0.07)" />
+      {/* Goal squares — span between the two inner goal posts */}
+      <rect x="268" y="30" width="24" height="36" stroke="rgba(255,255,255,0.55)" strokeWidth="1.5" fill="rgba(255,255,255,0.07)" />
+      <rect x="268" y="714" width="24" height="36" stroke="rgba(255,255,255,0.55)" strokeWidth="1.5" fill="rgba(255,255,255,0.07)" />
 
-      {/* Goal posts top */}
-      <line x1="266" y1="10" x2="266" y2="30" stroke="rgba(255,255,255,0.7)" strokeWidth="2.5" strokeLinecap="round" />
-      <line x1="280" y1="4" x2="280" y2="30" stroke="rgba(255,255,255,0.85)" strokeWidth="3" strokeLinecap="round" />
-      <line x1="294" y1="10" x2="294" y2="30" stroke="rgba(255,255,255,0.7)" strokeWidth="2.5" strokeLinecap="round" />
+      {/* Goal posts top — 2 taller inner goal posts + 2 shorter outer behind posts */}
+      <line x1="252" y1="21" x2="252" y2="30" stroke="rgba(255,255,255,0.5)" strokeWidth="2" strokeLinecap="round" />
+      <line x1="268" y1="5"  x2="268" y2="30" stroke="rgba(255,255,255,0.85)" strokeWidth="3" strokeLinecap="round" />
+      <line x1="292" y1="5"  x2="292" y2="30" stroke="rgba(255,255,255,0.85)" strokeWidth="3" strokeLinecap="round" />
+      <line x1="308" y1="21" x2="308" y2="30" stroke="rgba(255,255,255,0.5)" strokeWidth="2" strokeLinecap="round" />
 
-      {/* Goal posts bottom */}
-      <line x1="266" y1="770" x2="266" y2="750" stroke="rgba(255,255,255,0.7)" strokeWidth="2.5" strokeLinecap="round" />
-      <line x1="280" y1="776" x2="280" y2="750" stroke="rgba(255,255,255,0.85)" strokeWidth="3" strokeLinecap="round" />
-      <line x1="294" y1="770" x2="294" y2="750" stroke="rgba(255,255,255,0.7)" strokeWidth="2.5" strokeLinecap="round" />
+      {/* Goal posts bottom — 2 taller inner goal posts + 2 shorter outer behind posts */}
+      <line x1="252" y1="750" x2="252" y2="759" stroke="rgba(255,255,255,0.5)" strokeWidth="2" strokeLinecap="round" />
+      <line x1="268" y1="750" x2="268" y2="775" stroke="rgba(255,255,255,0.85)" strokeWidth="3" strokeLinecap="round" />
+      <line x1="292" y1="750" x2="292" y2="775" stroke="rgba(255,255,255,0.85)" strokeWidth="3" strokeLinecap="round" />
+      <line x1="308" y1="750" x2="308" y2="759" stroke="rgba(255,255,255,0.5)" strokeWidth="2" strokeLinecap="round" />
     </svg>
   )
 }
