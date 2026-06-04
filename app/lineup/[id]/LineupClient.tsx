@@ -1,5 +1,5 @@
 'use client'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { ChevronLeft, RotateCcw, Users, Share2, Settings, Undo2 } from 'lucide-react'
@@ -85,10 +85,21 @@ export default function LineupPage() {
   const [shareOpen, setShareOpen] = useState(false)
   const [clearConfirm, setClearConfirm] = useState(false)
   const [settingsOpen, setSettingsOpen] = useState(false)
+  const [savedFlash, setSavedFlash] = useState(false)
+  const savedTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const isFirstRender = useRef(true)
 
   useEffect(() => {
     if (lineups.length > 0 && !lineup) router.replace('/')
   }, [lineup, lineups.length, router])
+
+  // Flash "Saved" briefly after every position change
+  useEffect(() => {
+    if (isFirstRender.current) { isFirstRender.current = false; return }
+    setSavedFlash(true)
+    if (savedTimer.current) clearTimeout(savedTimer.current)
+    savedTimer.current = setTimeout(() => setSavedFlash(false), 2000)
+  }, [lineup?.positions]) // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!lineup) return null
 
@@ -231,6 +242,10 @@ export default function LineupPage() {
         {selectedId ? (
           <p className="text-xs font-bold text-[rgba(0,0,0,0.55)] animate-pulse">
             Tap a position to place
+          </p>
+        ) : savedFlash ? (
+          <p className="text-xs text-[rgba(0,0,0,0.35)] font-medium transition-opacity">
+            Saved
           </p>
         ) : clearConfirm ? (
           <div className="flex items-center gap-2">
