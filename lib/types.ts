@@ -27,6 +27,7 @@ export interface Lineup {
   time: string
   // Display
   displayMode: 'surname' | 'nickname'
+  fieldFlipped?: boolean
   // Positions: positionKey -> playerId
   positions: Record<string, string>
 }

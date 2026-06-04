@@ -270,7 +270,7 @@ export default function AflField({ lineup, squad, selectedPlayerId, onPositionCl
               style={{
                 position: 'absolute',
                 left: `${pos.x}%`,
-                top:  `${pos.y}%`,
+                top:  `${lineup.fieldFlipped ? 100 - pos.y : pos.y}%`,
                 transform: 'translate(-50%, -50%)',
                 zIndex: 10,
               }}

@@ -2,7 +2,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { ChevronLeft, RotateCcw, Users, Share2, Settings, Undo2 } from 'lucide-react'
+import { ChevronLeft, RotateCcw, Users, Share2, Settings, Undo2, ArrowUpDown } from 'lucide-react'
 import { useStore } from '@/lib/store'
 import { Player, Lineup, isLightColour, formatTime, formatMatchDate } from '@/lib/types'
 import AflField from '@/components/AflField'
@@ -286,11 +286,19 @@ export default function LineupPage() {
           </div>
         )}
 
-        {/* Right: position count + squad button */}
+        {/* Right: position count + flip + squad button */}
         <div className="flex items-center gap-3">
           <span className="text-xs text-[rgba(0,0,0,0.28)]">
             {assignedIds.size}/25
           </span>
+          <button
+            onClick={() => updateLineup(id, { fieldFlipped: !lineup.fieldFlipped })}
+            className="p-1.5 rounded-lg transition-colors cursor-pointer"
+            style={{ color: lineup.fieldFlipped ? 'rgba(0,0,0,0.6)' : 'rgba(0,0,0,0.25)' }}
+            title={lineup.fieldFlipped ? 'Backs at top' : 'Forwards at top'}
+          >
+            <ArrowUpDown size={15} />
+          </button>
           <button
             onClick={() => { setSquadOpen(true); setSelectedId(null) }}
             className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-[#0a0a0a] text-white text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer hover:bg-[#1a1a1a]"
