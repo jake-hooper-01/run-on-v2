@@ -19,6 +19,7 @@ interface AppStore {
   clearPosition: (lineupId: string, position: string) => void
   clearAllPositions: (lineupId: string) => void
   setHasSeenWelcome: () => void
+  resetWelcome: () => void
   _setHasHydrated: () => void
 }
 
@@ -31,6 +32,7 @@ export const useStore = create<AppStore>()(
       _hasHydrated: false,
 
       setHasSeenWelcome: () => set({ hasSeenWelcome: true }),
+      resetWelcome: () => set({ hasSeenWelcome: false }),
       _setHasHydrated: () => set({ _hasHydrated: true }),
 
       addPlayer: (p) => {

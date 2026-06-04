@@ -126,7 +126,7 @@ function LineupCard({ lineup, onDelete, onDuplicate }: { lineup: Lineup; onDelet
 }
 
 export default function HomePage() {
-  const { lineups, deleteLineup, duplicateLineup } = useStore()
+  const { lineups, deleteLineup, duplicateLineup, resetWelcome } = useStore()
   const router = useRouter()
   const sorted = [...lineups].sort((a, b) => b.createdAt - a.createdAt)
   const [walkthroughOpen, setWalkthroughOpen] = useState(false)
@@ -139,9 +139,8 @@ export default function HomePage() {
       {/* Header */}
       <div className="bg-white border-b border-[rgba(0,0,0,0.08)] sticky top-0 z-10">
         <div className="max-w-lg mx-auto px-4 py-4 flex items-center justify-between">
-          <div>
+          <button onClick={resetWelcome} className="text-left cursor-pointer">
             <div className="flex items-center gap-2.5">
-              {/* 01C chevron mark */}
               <svg width="20" height="26" viewBox="0 0 64 82" fill="none" xmlns="http://www.w3.org/2000/svg" className="shrink-0">
                 <path d="M4 10 L26 41 L4 72" stroke="#1565C0" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" opacity="0.35"/>
                 <path d="M20 10 L42 41 L20 72" stroke="#1565C0" strokeWidth="4.5" strokeLinecap="round" strokeLinejoin="round" opacity="0.68"/>
@@ -153,7 +152,7 @@ export default function HomePage() {
               </div>
             </div>
             <p className="text-xs text-[rgba(0,0,0,0.38)] mt-0.5 font-medium">Team Management</p>
-          </div>
+          </button>
 
           <div className="flex items-center gap-2">
             <button
