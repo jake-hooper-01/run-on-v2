@@ -1,8 +1,6 @@
 import LineupClient from './LineupClient'
 
-export function generateStaticParams() {
-  return [{ id: 'local' }]
-}
+export const runtime = 'edge'
 
 export default function LineupPage() {
   return <LineupClient />
