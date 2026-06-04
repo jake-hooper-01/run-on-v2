@@ -7,6 +7,8 @@ import ColourPicker from './ColourPicker'
 import LogoUpload from './LogoUpload'
 import BackgroundPhotoUpload from './BackgroundPhotoUpload'
 
+type FeedbackState = 'idle' | 'sending' | 'success' | 'error'
+
 interface Props {
   lineup: Lineup
   onSave: (updates: Partial<Lineup>) => void
@@ -21,6 +23,24 @@ export default function LineupSettings({ lineup, onSave, onClose }: Props) {
   const [colour, setColour] = useState(lineup.primaryColour || '#003087')
   const [logo, setLogo] = useState(lineup.logoDataUrl || '')
   const [bgPhoto, setBgPhoto] = useState(lineup.backgroundPhotoDataUrl || '')
+
+  const [feedbackText, setFeedbackText] = useState('')
+  const [feedbackState, setFeedbackState] = useState<FeedbackState>('idle')
+
+  async function handleFeedbackSend() {
+    if (!feedbackText.trim() || feedbackState === 'sending') return
+    setFeedbackState('sending')
+    try {
+      const res = await fetch('/api/feedback', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: feedbackText }),
+      })
+      setFeedbackState(res.ok ? 'success' : 'error')
+    } catch {
+      setFeedbackState('error')
+    }
+  }
 
   function handleSave() {
     onSave({ opponent, venue, date, time, primaryColour: colour, logoDataUrl: logo, backgroundPhotoDataUrl: bgPhoto })
@@ -106,6 +126,45 @@ export default function LineupSettings({ lineup, onSave, onClose }: Props) {
               <LogoUpload value={logo} onChange={setLogo} />
               <ColourPicker label="Club Colour" value={colour} onChange={setColour} />
               <BackgroundPhotoUpload value={bgPhoto} onChange={setBgPhoto} primaryColour={colour} />
+            </div>
+          </div>
+
+          {/* Feedback */}
+          <div className="pt-1">
+            <div className="border-t border-[rgba(0,0,0,0.06)] pt-5">
+              <p className="text-xs font-semibold uppercase tracking-widest text-[rgba(10,10,10,0.4)] mb-3">
+                Send Feedback
+              </p>
+              {feedbackState === 'success' ? (
+                <p className="text-sm text-[rgba(0,0,0,0.5)] py-2">Thanks — feedback sent.</p>
+              ) : (
+                <div className="space-y-2">
+                  <textarea
+                    value={feedbackText}
+                    onChange={(e) => {
+                      if (e.target.value.length <= 1000) setFeedbackText(e.target.value)
+                    }}
+                    rows={4}
+                    placeholder="What's working, what's not, what you'd like to see..."
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-[rgba(0,0,0,0.12)] bg-[#F7F8FA] text-sm text-[#0a0a0a] focus:outline-none focus:border-[rgba(0,0,0,0.3)] placeholder:text-[rgba(0,0,0,0.25)] resize-none"
+                  />
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs text-[rgba(0,0,0,0.3)]">
+                      {feedbackText.length} / 1000
+                    </span>
+                    <button
+                      onClick={handleFeedbackSend}
+                      disabled={feedbackState === 'sending' || !feedbackText.trim()}
+                      className="px-4 py-2 rounded-xl bg-[#0a0a0a] text-white font-display font-bold text-xs uppercase tracking-widest cursor-pointer hover:bg-[#1a1a1a] transition-colors disabled:opacity-40 disabled:cursor-not-allowed min-h-[44px]"
+                    >
+                      {feedbackState === 'sending' ? 'Sending…' : 'Send'}
+                    </button>
+                  </div>
+                  {feedbackState === 'error' && (
+                    <p className="text-xs text-red-500">Something went wrong. Try again.</p>
+                  )}
+                </div>
+              )}
             </div>
           </div>
 
