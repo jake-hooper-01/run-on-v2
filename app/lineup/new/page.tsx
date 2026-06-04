@@ -5,38 +5,37 @@ import Link from 'next/link'
 import { ChevronLeft } from 'lucide-react'
 import { useStore } from '@/lib/store'
 import { Lineup } from '@/lib/types'
-import ColourPicker from '@/components/ColourPicker'
-import LogoUpload from '@/components/LogoUpload'
-import BackgroundPhotoUpload from '@/components/BackgroundPhotoUpload'
 
 type FormData = Omit<Lineup, 'id' | 'createdAt' | 'positions'>
 
-const EMPTY: FormData = {
-  clubName:                '',
-  teamName:                '',
-  ageGroup:                '',
-  logoDataUrl:             '',
-  primaryColour:           '#003087',
-  backgroundPhotoDataUrl:  '',
-  opponent:                '',
-  venue:                   '',
-  date:                    '',
-  time:                    '',
-  displayMode:             'surname',
+const DEFAULTS: FormData = {
+  clubName:               '',
+  teamName:               '',
+  ageGroup:               '',
+  logoDataUrl:            '',
+  primaryColour:          '#003087',
+  backgroundPhotoDataUrl: '',
+  opponent:               '',
+  venue:                  '',
+  date:                   '',
+  time:                   '',
+  displayMode:            'surname',
 }
 
 export default function NewLineupPage() {
   const router = useRouter()
   const createLineup = useStore((s) => s.createLineup)
-  const [form, setForm] = useState<FormData>(EMPTY)
+  const [form, setForm] = useState<FormData>(DEFAULTS)
+  const [error, setError] = useState(false)
 
   function set<K extends keyof FormData>(field: K, value: FormData[K]) {
     setForm((f) => ({ ...f, [field]: value }))
+    setError(false)
   }
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
-    if (!form.teamName.trim() && !form.clubName.trim()) return
+    if (!form.teamName.trim() && !form.clubName.trim()) { setError(true); return }
     const id = createLineup(form)
     router.push(`/lineup/${id}`)
   }
@@ -47,16 +46,9 @@ export default function NewLineupPage() {
   const labelCls =
     'block text-xs font-semibold uppercase tracking-widest text-[rgba(10,10,10,0.4)] mb-1.5'
 
-  const sectionCls =
-    'bg-white rounded-2xl border border-[rgba(0,0,0,0.08)] p-5 shadow-[0_1px_6px_rgba(0,0,0,0.05)]'
-
-  const sectionTitle =
-    'font-display font-bold text-xs uppercase tracking-widest text-[rgba(0,0,0,0.35)] mb-4'
-
   return (
     <div className="min-h-screen bg-[#F7F8FA] pb-10">
 
-      {/* Sticky header */}
       <div className="sticky top-0 z-10 bg-white/95 backdrop-blur border-b border-[rgba(0,0,0,0.08)]">
         <div className="max-w-lg mx-auto flex items-center gap-3 px-4 py-4">
           <Link
@@ -73,9 +65,8 @@ export default function NewLineupPage() {
 
       <form onSubmit={handleSubmit} className="max-w-lg mx-auto px-4 pt-5 space-y-4">
 
-        {/* ── Team details ── */}
-        <section className={sectionCls}>
-          <h2 className={sectionTitle}>Team</h2>
+        <section className="bg-white rounded-2xl border border-[rgba(0,0,0,0.08)] p-5 shadow-[0_1px_6px_rgba(0,0,0,0.05)]">
+          <h2 className="font-display font-bold text-xs uppercase tracking-widest text-[rgba(0,0,0,0.35)] mb-4">Team</h2>
           <div className="space-y-3">
             <div>
               <label className={labelCls}>Club Name</label>
@@ -87,14 +78,18 @@ export default function NewLineupPage() {
               />
             </div>
             <div>
-              <label className={labelCls}>Team Name *</label>
+              <label className={labelCls}>
+                Team Name <span className="text-[rgba(0,0,0,0.25)]">*</span>
+              </label>
               <input
                 value={form.teamName}
                 onChange={(e) => set('teamName', e.target.value)}
                 placeholder="The Bears"
-                required
-                className={inputCls}
+                className={`${inputCls} ${error ? 'border-red-400 focus:border-red-500' : ''}`}
               />
+              {error && (
+                <p className="text-xs text-red-500 mt-1.5">Enter a team name to continue.</p>
+              )}
             </div>
             <div>
               <label className={labelCls}>Age Group</label>
@@ -108,104 +103,17 @@ export default function NewLineupPage() {
           </div>
         </section>
 
-        {/* ── Club branding ── */}
-        <section className={sectionCls}>
-          <h2 className={sectionTitle}>Club Branding</h2>
-          <div className="space-y-5">
-            <LogoUpload
-              value={form.logoDataUrl}
-              onChange={(v) => set('logoDataUrl', v)}
-            />
-            <ColourPicker
-              label="Primary Colour"
-              value={form.primaryColour}
-              onChange={(v) => set('primaryColour', v)}
-            />
-            <BackgroundPhotoUpload
-              value={form.backgroundPhotoDataUrl}
-              onChange={(v) => set('backgroundPhotoDataUrl', v)}
-              primaryColour={form.primaryColour}
-            />
-          </div>
-        </section>
-
-        {/* ── Match details ── */}
-        <section className={sectionCls}>
-          <h2 className={sectionTitle}>Match Details</h2>
-          <div className="space-y-3">
-            <div>
-              <label className={labelCls}>Opponent</label>
-              <input
-                value={form.opponent}
-                onChange={(e) => set('opponent', e.target.value)}
-                placeholder="Eastside FC"
-                className={inputCls}
-              />
-            </div>
-            <div>
-              <label className={labelCls}>Location / Ground</label>
-              <input
-                value={form.venue}
-                onChange={(e) => set('venue', e.target.value)}
-                placeholder="Central Oval, Smith St"
-                className={inputCls}
-              />
-            </div>
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <label className={labelCls}>Date</label>
-                <input
-                  type="date"
-                  value={form.date}
-                  onChange={(e) => set('date', e.target.value)}
-                  className={`${inputCls} [color-scheme:light]`}
-                />
-              </div>
-              <div>
-                <label className={labelCls}>Time</label>
-                <input
-                  type="time"
-                  value={form.time}
-                  onChange={(e) => set('time', e.target.value)}
-                  className={`${inputCls} [color-scheme:light]`}
-                />
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ── Display ── */}
-        <section className={sectionCls}>
-          <h2 className={sectionTitle}>Player Display</h2>
-          <p className="text-xs text-[rgba(0,0,0,0.38)] mb-3">
-            How names appear on player cards. Can be changed at any time on the lineup board.
-          </p>
-          <div className="grid grid-cols-2 gap-2">
-            {(['surname', 'nickname'] as const).map((mode) => (
-              <button
-                key={mode}
-                type="button"
-                onClick={() => set('displayMode', mode)}
-                className="py-2.5 rounded-xl text-sm font-bold uppercase tracking-wider transition-all cursor-pointer border"
-                style={{
-                  background: form.displayMode === mode ? '#0a0a0a' : 'transparent',
-                  color:      form.displayMode === mode ? '#ffffff' : 'rgba(0,0,0,0.45)',
-                  borderColor: form.displayMode === mode ? '#0a0a0a' : 'rgba(0,0,0,0.1)',
-                }}
-              >
-                {mode === 'surname' ? 'Surnames' : 'Nicknames'}
-              </button>
-            ))}
-          </div>
-        </section>
-
-        {/* Submit */}
         <button
           type="submit"
           className="w-full py-4 bg-[#0a0a0a] text-white font-display font-bold text-lg uppercase tracking-widest rounded-2xl hover:bg-[#1a1a1a] active:scale-[0.99] transition-all cursor-pointer shadow-lg"
         >
           Pick the Team →
         </button>
+
+        <p className="text-center text-xs text-[rgba(0,0,0,0.3)] pb-2">
+          Club colours, logo, and match details can be added from the lineup board.
+        </p>
+
       </form>
     </div>
   )

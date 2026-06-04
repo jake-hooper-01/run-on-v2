@@ -1,14 +1,18 @@
 'use client'
 import { useState } from 'react'
 import Link from 'next/link'
-import { Plus, Users, Trash2, ChevronRight, Calendar, MapPin, Copy, HelpCircle } from 'lucide-react'
+import { Plus, Users, Trash2, ChevronRight, Calendar, MapPin, Copy, HelpCircle, MessageSquare } from 'lucide-react'
 import { useStore } from '@/lib/store'
 import { Lineup, isLightColour, formatTime, formatMatchDate } from '@/lib/types'
-import { useRouter } from 'next/navigation'
 import WelcomeScreen from '@/components/WelcomeScreen'
 import Walkthrough from '@/components/Walkthrough'
+import FeedbackModal from '@/components/FeedbackModal'
 
-function LineupCard({ lineup, onDelete, onDuplicate }: { lineup: Lineup; onDelete: () => void; onDuplicate: () => void }) {
+function LineupCard({
+  lineup, onDelete, onDuplicate, highlight,
+}: {
+  lineup: Lineup; onDelete: () => void; onDuplicate: () => void; highlight: boolean
+}) {
   const [confirm, setConfirm] = useState(false)
   const filled = Object.keys(lineup.positions).length
   const primary = lineup.primaryColour || '#003087'
@@ -16,14 +20,22 @@ function LineupCard({ lineup, onDelete, onDuplicate }: { lineup: Lineup; onDelet
   const dateStr = formatMatchDate(lineup.date)
 
   return (
-    <div className="group relative rounded-2xl bg-white border border-[rgba(0,0,0,0.08)] overflow-hidden shadow-[0_2px_12px_rgba(0,0,0,0.06)] hover:shadow-[0_4px_20px_rgba(0,0,0,0.1)] transition-shadow">
+    <div className={`group relative rounded-2xl bg-white overflow-hidden transition-all ${
+      highlight
+        ? 'shadow-[0_0_0_2px_rgba(30,136,229,0.45),0_4px_20px_rgba(0,0,0,0.1)] border border-[rgba(30,136,229,0.3)]'
+        : 'border border-[rgba(0,0,0,0.08)] shadow-[0_2px_12px_rgba(0,0,0,0.06)] hover:shadow-[0_4px_20px_rgba(0,0,0,0.1)]'
+    }`}>
 
-      {/* Club colour top stripe */}
-      <div className="h-1.5 w-full" style={{ background: primary }} />
+      {/* Progress stripe — filled proportion shown in club colour */}
+      <div className="relative h-1.5 w-full overflow-hidden" style={{ background: `${primary}25` }}>
+        <div
+          className="absolute inset-y-0 left-0 transition-all duration-500"
+          style={{ width: `${Math.round((filled / 25) * 100)}%`, background: primary }}
+        />
+      </div>
 
       <Link href={`/lineup/${lineup.id}`} className="flex items-center gap-4 px-4 py-4">
 
-        {/* Logo or initial */}
         {lineup.logoDataUrl ? (
           <div
             className="w-12 h-12 rounded-xl overflow-hidden shrink-0 flex items-center justify-center p-1.5"
@@ -41,7 +53,6 @@ function LineupCard({ lineup, onDelete, onDuplicate }: { lineup: Lineup; onDelet
           </div>
         )}
 
-        {/* Info */}
         <div className="flex-1 min-w-0">
           <div className="flex items-baseline gap-2 mb-0.5">
             <span className="font-display font-bold text-base uppercase tracking-wide text-[#0a0a0a] truncate leading-tight">
@@ -73,7 +84,10 @@ function LineupCard({ lineup, onDelete, onDuplicate }: { lineup: Lineup; onDelet
                 {lineup.venue}
               </span>
             )}
-            <span className="text-xs text-[rgba(0,0,0,0.25)]">
+            <span
+              className="text-xs font-semibold"
+              style={{ color: filled === 25 ? primary : 'rgba(0,0,0,0.25)' }}
+            >
               {filled}/25
             </span>
           </div>
@@ -82,7 +96,6 @@ function LineupCard({ lineup, onDelete, onDuplicate }: { lineup: Lineup; onDelet
         <ChevronRight size={16} className="text-[rgba(0,0,0,0.2)] group-hover:text-[rgba(0,0,0,0.5)] transition-colors shrink-0" />
       </Link>
 
-      {/* Action row — always visible on mobile */}
       <div className="flex items-center justify-end gap-1 px-3 pb-2.5">
         {confirm ? (
           <div className="flex items-center gap-2">
@@ -126,20 +139,40 @@ function LineupCard({ lineup, onDelete, onDuplicate }: { lineup: Lineup; onDelet
 }
 
 export default function HomePage() {
-  const { lineups, deleteLineup, duplicateLineup, resetWelcome } = useStore()
-  const router = useRouter()
-  const sorted = [...lineups].sort((a, b) => b.createdAt - a.createdAt)
+  const { lineups, deleteLineup, duplicateLineup } = useStore()
   const [walkthroughOpen, setWalkthroughOpen] = useState(false)
+  const [feedbackOpen, setFeedbackOpen] = useState(false)
+  const [recentId, setRecentId] = useState<string | null>(null)
+
+  const now = Date.now()
+  const sorted = [...lineups].sort((a, b) => {
+    const aMs = a.date ? new Date(a.date + 'T12:00:00').getTime() : null
+    const bMs = b.date ? new Date(b.date + 'T12:00:00').getTime() : null
+    // A lineup is "upcoming" if its date is today or in the future (24h grace)
+    const aUp = aMs !== null && aMs >= now - 86_400_000
+    const bUp = bMs !== null && bMs >= now - 86_400_000
+    if (aUp && bUp) return (aMs as number) - (bMs as number) // soonest first
+    if (aUp) return -1
+    if (bUp) return 1
+    return b.createdAt - a.createdAt // past / no date: newest first
+  })
+
+  function handleDuplicate(id: string) {
+    const newId = duplicateLineup(id)
+    setRecentId(newId)
+    setTimeout(() => setRecentId(null), 2500)
+  }
 
   return (
     <div className="min-h-screen bg-[#F7F8FA]">
       <WelcomeScreen onShowWalkthrough={() => setWalkthroughOpen(true)} />
       {walkthroughOpen && <Walkthrough onClose={() => setWalkthroughOpen(false)} />}
+      {feedbackOpen && <FeedbackModal onClose={() => setFeedbackOpen(false)} />}
 
       {/* Header */}
       <div className="bg-white border-b border-[rgba(0,0,0,0.08)] sticky top-0 z-10">
         <div className="max-w-lg mx-auto px-4 py-4 flex items-center justify-between">
-          <button onClick={resetWelcome} className="text-left cursor-pointer">
+          <div>
             <div className="flex items-center gap-2.5">
               <svg width="20" height="26" viewBox="0 0 64 82" fill="none" xmlns="http://www.w3.org/2000/svg" className="shrink-0">
                 <path d="M4 10 L26 41 L4 72" stroke="#1565C0" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" opacity="0.35"/>
@@ -152,7 +185,7 @@ export default function HomePage() {
               </div>
             </div>
             <p className="text-xs text-[rgba(0,0,0,0.38)] mt-0.5 font-medium">Team Management</p>
-          </button>
+          </div>
 
           <div className="flex items-center gap-2">
             <button
@@ -177,7 +210,6 @@ export default function HomePage() {
       <div className="max-w-lg mx-auto px-4 py-6">
         {sorted.length === 0 ? (
           <div className="flex flex-col items-center text-center pt-16 gap-6">
-            {/* Field illustration */}
             <div className="w-32 opacity-20">
               <svg viewBox="0 0 100 115" className="w-full">
                 <ellipse cx="50" cy="57" rx="46" ry="52" fill="#1B5E20" stroke="rgba(255,255,255,0.5)" strokeWidth="0.5" />
@@ -222,11 +254,9 @@ export default function HomePage() {
                 <LineupCard
                   key={lineup.id}
                   lineup={lineup}
+                  highlight={recentId === lineup.id}
                   onDelete={() => deleteLineup(lineup.id)}
-                  onDuplicate={() => {
-                    const newId = duplicateLineup(lineup.id)
-                    router.push(`/lineup/${newId}`)
-                  }}
+                  onDuplicate={() => handleDuplicate(lineup.id)}
                 />
               ))}
             </div>
@@ -235,7 +265,14 @@ export default function HomePage() {
       </div>
 
       {/* Footer */}
-      <div className="text-center py-6">
+      <div className="text-center py-6 space-y-2">
+        <button
+          onClick={() => setFeedbackOpen(true)}
+          className="flex items-center gap-1.5 mx-auto text-xs text-[rgba(0,0,0,0.32)] hover:text-[rgba(0,0,0,0.6)] transition-colors cursor-pointer"
+        >
+          <MessageSquare size={11} />
+          Send feedback
+        </button>
         <p className="text-xs text-[rgba(0,0,0,0.18)]">
           Run-On by{' '}
           <a href="https://hotboxdesign.com.au" className="hover:text-[rgba(0,0,0,0.45)] transition-colors">

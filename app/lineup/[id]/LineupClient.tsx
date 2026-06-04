@@ -169,19 +169,24 @@ export default function LineupPage() {
 
         {/* Actions */}
         <div className="flex items-center gap-1 shrink-0">
-          {/* Display mode toggle */}
-          <button
-            onClick={toggleDisplayMode}
-            title={lineup.displayMode === 'surname' ? 'Switch to nicknames' : 'Switch to surnames'}
-            className="px-2.5 py-1 rounded-lg cursor-pointer transition-colors font-display font-bold text-xs tracking-widest border"
-            style={{
-              color: onPrimary,
-              borderColor: `${onPrimary}40`,
-              background: `${onPrimary === '#ffffff' ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.06)'}`,
-            }}
-          >
-            {lineup.displayMode === 'surname' ? 'SUR' : 'NICK'}
-          </button>
+          {/* Display mode segmented control */}
+          <div className="flex rounded-lg overflow-hidden border" style={{ borderColor: `${onPrimary}35` }}>
+            {(['surname', 'nickname'] as const).map((mode) => (
+              <button
+                key={mode}
+                onClick={() => { if (lineup.displayMode !== mode) toggleDisplayMode() }}
+                className="px-2.5 py-1 font-display font-bold text-xs tracking-widest transition-colors cursor-pointer"
+                style={{
+                  background: lineup.displayMode === mode
+                    ? onPrimary === '#ffffff' ? 'rgba(255,255,255,0.22)' : 'rgba(0,0,0,0.12)'
+                    : 'transparent',
+                  color: lineup.displayMode === mode ? onPrimary : `${onPrimary}45`,
+                }}
+              >
+                {mode === 'surname' ? 'SUR' : 'NICK'}
+              </button>
+            ))}
+          </div>
 
           {/* Settings */}
           <button
@@ -254,13 +259,15 @@ export default function LineupPage() {
                 Undo{positionHistory.length > 1 ? ` (${positionHistory.length})` : ''}
               </button>
             )}
-            <button
-              onClick={() => setClearConfirm(true)}
-              className="flex items-center gap-1.5 text-xs text-[rgba(0,0,0,0.3)] hover:text-[rgba(0,0,0,0.65)] font-semibold uppercase tracking-wider transition-colors cursor-pointer"
-            >
-              <RotateCcw size={13} />
-              Reset
-            </button>
+            {assignedIds.size > 0 && (
+              <button
+                onClick={() => setClearConfirm(true)}
+                className="flex items-center gap-1.5 text-xs text-[rgba(0,0,0,0.3)] hover:text-[rgba(0,0,0,0.65)] font-semibold uppercase tracking-wider transition-colors cursor-pointer"
+              >
+                <RotateCcw size={13} />
+                Reset
+              </button>
+            )}
           </div>
         )}
 
