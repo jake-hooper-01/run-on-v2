@@ -218,8 +218,8 @@ function FieldMarkings() {
       <circle cx="280" cy="390" r="5" fill="rgba(255,255,255,0.75)" />
 
       {/* Goal squares */}
-      <rect x="253" y="30" width="54" height="24" stroke="rgba(255,255,255,0.55)" strokeWidth="1.5" fill="rgba(255,255,255,0.07)" />
-      <rect x="253" y="726" width="54" height="24" stroke="rgba(255,255,255,0.55)" strokeWidth="1.5" fill="rgba(255,255,255,0.07)" />
+      <rect x="266" y="30" width="28" height="36" stroke="rgba(255,255,255,0.55)" strokeWidth="1.5" fill="rgba(255,255,255,0.07)" />
+      <rect x="266" y="714" width="28" height="36" stroke="rgba(255,255,255,0.55)" strokeWidth="1.5" fill="rgba(255,255,255,0.07)" />
 
       {/* Goal posts top */}
       <line x1="266" y1="10" x2="266" y2="30" stroke="rgba(255,255,255,0.7)" strokeWidth="2.5" strokeLinecap="round" />

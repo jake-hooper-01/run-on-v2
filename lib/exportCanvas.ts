@@ -307,9 +307,9 @@ function drawOval(
   ctx.arc(cx, cy, 6, 0, Math.PI * 2)
   ctx.fill()
 
-  // Goal squares
-  const gsW = rx * 0.18
-  const gsH = ry * 0.04
+  // Goal squares — width matches the post span (cx ± gp), height ≈ real AFL 9×9m square
+  const gsW = rx * 0.10
+  const gsH = ry * 0.089
   ctx.fillStyle = 'rgba(255,255,255,0.07)'
   ctx.strokeStyle = 'rgba(255,255,255,0.55)'
   ctx.lineWidth = 2
@@ -537,30 +537,26 @@ async function generateFieldFormat(
 }
 
 // ─── Format B: Team List ──────────────────────────────────────────────────────
-// Classic AFL team sheet — position groups listed as text rows over the photo
+// Left-column group labels (BACKS / MIDFIELDERS / FOLLOWERS / FORWARDS) with
+// 3-player rows to the right.  Interchange + emergencies span full width below.
 
-interface ListRow {
-  label:    string   // main section header (empty for ruck-group continuation)
-  sublabel: string   // position abbreviations shown below the header
-  keys:     string[]
+interface FieldGroup {
+  label: string
+  rows:  string[][]   // each inner array = 3 position keys
 }
 
-// 8 rows — midfield split into wing/centre row + ruck row, plus emergencies
-const LIST_ROWS: ListRow[] = [
-  { label: 'BACK LINE',    sublabel: 'BPL  ·  FB  ·  BPR',          keys: ['BPL', 'FB', 'BPR']             },
-  { label: 'HALF BACK',    sublabel: 'HBL  ·  CHB  ·  HBR',         keys: ['HBL', 'CHB', 'HBR']            },
-  { label: 'MIDFIELD',     sublabel: 'WL  ·  C  ·  WR',             keys: ['WL', 'C', 'WR']                },
-  { label: 'RUCK / ROVER', sublabel: 'RR  ·  RK  ·  ROV',           keys: ['RR', 'RK', 'ROV']              },
-  { label: 'HALF FORWARD', sublabel: 'HFL  ·  CHF  ·  HFR',         keys: ['HFL', 'CHF', 'HFR']            },
-  { label: 'FORWARD LINE', sublabel: 'FPL  ·  FF  ·  FPR',          keys: ['FPL', 'FF', 'FPR']             },
-  { label: 'INTERCHANGE',  sublabel: 'INT  ·  INT  ·  INT  ·  INT', keys: ['INT1', 'INT2', 'INT3', 'INT4'] },
-  { label: 'EMERGENCIES',  sublabel: 'EMG  ·  EMG  ·  EMG',         keys: ['EMG1', 'EMG2', 'EMG3']         },
+const FIELD_GROUPS: FieldGroup[] = [
+  { label: 'BACKS',       rows: [['BPL', 'FB', 'BPR'], ['HBL', 'CHB', 'HBR']] },
+  { label: 'MIDFIELDERS', rows: [['WL', 'C', 'WR']] },
+  { label: 'FOLLOWERS',   rows: [['RR', 'RK', 'ROV']] },
+  { label: 'FORWARDS',    rows: [['HFL', 'CHF', 'HFR'], ['FPL', 'FF', 'FPR']] },
 ]
 
-// 3-across column centres
-const COL3 = [W / 6, W / 2, 5 * W / 6]          // [180, 540, 900]
-// 4-across column centres (interchange)
-const COL4 = [W / 8, 3 * W / 8, 5 * W / 8, 7 * W / 8]  // [135, 405, 675, 945]
+const LABEL_W = 140
+const PCW     = (W - LABEL_W) / 3
+const PCOLS   = [LABEL_W + PCW * 0.5, LABEL_W + PCW * 1.5, LABEL_W + PCW * 2.5]
+const COL3    = [W / 6, W / 2, 5 * W / 6]
+const COL4    = [W / 8, 3 * W / 8, 5 * W / 8, 7 * W / 8]
 
 async function generateListFormat(
   ctx: CanvasRenderingContext2D,
@@ -570,13 +566,12 @@ async function generateListFormat(
   playerById: Record<string, Player>,
   displayMode: 'surname' | 'nickname',
 ) {
-  // Position label lookup: key → short label
   const posLabelOf: Record<string, string> = {}
   for (const p of FIELD_POSITIONS) posLabelOf[p.key] = p.shortLabel
   for (const k of INTERCHANGE_KEYS) posLabelOf[k] = 'INT'
   for (const k of EMERGENCY_KEYS) posLabelOf[k] = 'EMG'
 
-  // Subtle field oval watermark
+  // Oval watermark
   ctx.save()
   ctx.globalAlpha = 0.032
   ctx.strokeStyle = '#ffffff'
@@ -591,98 +586,200 @@ async function generateListFormat(
   ctx.stroke()
   ctx.restore()
 
-  const BODY_TOP = HDR + 2
-  const BODY_BOT = 1290
-  const ROW_H    = Math.floor((BODY_BOT - BODY_TOP) / LIST_ROWS.length)  // ≈ 136px
-  const HDR_H    = 32   // header band height per row
+  const BODY_TOP = HDR + 2   // = 202
+  const ROW_H   = 150        // height per 3-player row
+  const TOTAL_ROWS = FIELD_GROUPS.reduce((s, g) => s + g.rows.length, 0)  // = 6
+  const FIELD_BOT = BODY_TOP + TOTAL_ROWS * ROW_H  // = 1102
 
-  LIST_ROWS.forEach((row, i) => {
-    const y0      = BODY_TOP + i * ROW_H
-    const is4Wide = row.keys.length === 4
-    const cols    = is4Wide ? COL4 : COL3
+  // Left label column background
+  ctx.fillStyle = hexToRgba(primary, 0.14)
+  ctx.fillRect(0, BODY_TOP, LABEL_W, FIELD_BOT - BODY_TOP)
 
-    // Row background — subtle alternating tint
-    ctx.fillStyle = hexToRgba(primary, i % 2 === 0 ? 0.10 : 0.05)
-    ctx.fillRect(0, y0, W, ROW_H)
+  // Vertical separator
+  ctx.strokeStyle = hexToRgba(primary, 0.38)
+  ctx.lineWidth = 1.5
+  ctx.beginPath()
+  ctx.moveTo(LABEL_W, BODY_TOP)
+  ctx.lineTo(LABEL_W, FIELD_BOT)
+  ctx.stroke()
 
-    // Section header band
-    ctx.fillStyle = hexToRgba(primary, 0.25)
-    ctx.fillRect(0, y0, W, HDR_H)
+  let rowY = BODY_TOP
 
-    // Accent bars
-    ctx.fillStyle = primary
-    ctx.fillRect(0, y0, 5, HDR_H)
-    ctx.fillRect(W - 5, y0, 5, HDR_H)
+  FIELD_GROUPS.forEach((group, gi) => {
+    const groupTop = rowY
+    const groupH   = group.rows.length * ROW_H
 
-    // Section label — clean, no sublabel
-    ctx.fillStyle = '#ffffff'
-    ctx.font = '700 17px Oswald, Arial Narrow, Arial, sans-serif'
+    // Group separator line (full width, except before first group)
+    if (gi > 0) {
+      ctx.strokeStyle = hexToRgba(primary, 0.32)
+      ctx.lineWidth = 1.5
+      ctx.beginPath()
+      ctx.moveTo(0, groupTop)
+      ctx.lineTo(W, groupTop)
+      ctx.stroke()
+    }
+
+    // Group label — rotated 90°, centred in label column over group height
+    ctx.save()
+    ctx.translate(LABEL_W / 2, groupTop + groupH / 2)
+    ctx.rotate(-Math.PI / 2)
+    ctx.fillStyle = 'rgba(255,255,255,0.82)'
+    ctx.font = '700 20px Oswald, Arial Narrow, Arial, sans-serif'
     ctx.textAlign = 'center'
     ctx.textBaseline = 'middle'
-    ctx.fillText(row.label, W / 2, y0 + HDR_H / 2)
+    ctx.fillText(group.label, 0, 0)
+    ctx.restore()
 
-    // ── Per-player cells ────────────────────────────────────────────────────
-    // Layout within player area (y0+HDR_H … y0+ROW_H = 104px):
-    //   pos label  baseline at +16   (11px cap ≈ 8px → text sits near top)
-    //   number     baseline at +54   (32px cap ≈ 24px)
-    //   name       baseline at +98   (auto-scaled, cap ≈ 34px at max size)
-    const playerTop = y0 + HDR_H
-    const posLblY   = playerTop + 16
-    const numY      = playerTop + 54
-    const nameY     = playerTop + 98
+    group.rows.forEach((rowKeys, ri) => {
+      const y0 = groupTop + ri * ROW_H
 
-    const maxNameW = is4Wide ? 200 : 270
-    const maxNmSz  = is4Wide ? 38  : 46
-    const numSz    = is4Wide ? 26  : 32
+      // Player area background — alternating tint
+      ctx.fillStyle = hexToRgba(primary, (gi + ri) % 2 === 0 ? 0.10 : 0.05)
+      ctx.fillRect(LABEL_W, y0, W - LABEL_W, ROW_H)
 
-    cols.forEach((colX, ci) => {
-      const posKey   = row.keys[ci]
-      if (!posKey) return
-      const player   = playerById[lineup.positions[posKey]] ?? null
-      const posLabel = posLabelOf[posKey] || posKey
-
-      if (player) {
-        // Position abbreviation — tiny, muted
-        ctx.fillStyle = 'rgba(255,255,255,0.35)'
-        ctx.font = '700 11px Inter, Arial, sans-serif'
-        ctx.textAlign = 'center'
-        ctx.textBaseline = 'alphabetic'
-        ctx.fillText(posLabel, colX, posLblY)
-
-        // Number — club colour, medium
-        ctx.fillStyle = hexToRgba(primary, 0.85)
-        ctx.font = `700 ${numSz}px Oswald, Arial Narrow, Arial, sans-serif`
-        ctx.textBaseline = 'alphabetic'
-        ctx.fillText(String(player.number), colX, numY)
-
-        // Name — large white, dominant
-        ctx.fillStyle = '#ffffff'
-        ctx.shadowColor   = 'rgba(0,0,0,0.45)'
-        ctx.shadowBlur    = 8
-        ctx.shadowOffsetY = 2
-        drawAutoName(ctx, getDisplayName(player, displayMode).toUpperCase(), colX, nameY, maxNameW, maxNmSz, 22)
-        ctx.shadowColor = 'transparent'; ctx.shadowBlur = 0; ctx.shadowOffsetY = 0
-      } else {
-        // Empty slot placeholder
-        const slotW   = is4Wide ? 170 : 230
-        const slotH   = 76
-        const slotMidY = (posLblY + nameY) / 2 - 2
-        ctx.fillStyle = 'rgba(255,255,255,0.03)'
-        roundRect(ctx, colX - slotW / 2, slotMidY - slotH / 2, slotW, slotH, 8)
-        ctx.fill()
-        ctx.strokeStyle = 'rgba(255,255,255,0.10)'
+      // Thin divider between sub-rows within a group
+      if (ri > 0) {
+        ctx.strokeStyle = hexToRgba(primary, 0.16)
         ctx.lineWidth = 1
-        ctx.setLineDash([5, 4])
-        roundRect(ctx, colX - slotW / 2, slotMidY - slotH / 2, slotW, slotH, 8)
+        ctx.beginPath()
+        ctx.moveTo(LABEL_W, y0)
+        ctx.lineTo(W, y0)
         ctx.stroke()
-        ctx.setLineDash([])
       }
+
+      // Player cells: pos label → number → name
+      const posLblY = y0 + 22
+      const numY    = y0 + 70
+      const nameY   = y0 + 124
+
+      rowKeys.forEach((posKey, ci) => {
+        const colX   = PCOLS[ci]
+        const player = playerById[lineup.positions[posKey]] ?? null
+
+        if (player) {
+          ctx.fillStyle = 'rgba(255,255,255,0.35)'
+          ctx.font = '700 11px Inter, Arial, sans-serif'
+          ctx.textAlign = 'center'
+          ctx.textBaseline = 'alphabetic'
+          ctx.fillText(posLabelOf[posKey] ?? posKey, colX, posLblY)
+
+          ctx.fillStyle = hexToRgba(primary, 0.85)
+          ctx.font = '700 32px Oswald, Arial Narrow, Arial, sans-serif'
+          ctx.textBaseline = 'alphabetic'
+          ctx.fillText(String(player.number), colX, numY)
+
+          ctx.fillStyle = '#ffffff'
+          ctx.shadowColor = 'rgba(0,0,0,0.45)'; ctx.shadowBlur = 8; ctx.shadowOffsetY = 2
+          drawAutoName(ctx, getDisplayName(player, displayMode).toUpperCase(), colX, nameY, 270, 46, 22)
+          ctx.shadowColor = 'transparent'; ctx.shadowBlur = 0; ctx.shadowOffsetY = 0
+        } else {
+          const slotW = 230, slotH = 90, slotMidY = (posLblY + nameY) / 2 - 4
+          ctx.fillStyle = 'rgba(255,255,255,0.03)'
+          roundRect(ctx, colX - slotW / 2, slotMidY - slotH / 2, slotW, slotH, 8)
+          ctx.fill()
+          ctx.strokeStyle = 'rgba(255,255,255,0.09)'; ctx.lineWidth = 1
+          ctx.setLineDash([5, 4])
+          roundRect(ctx, colX - slotW / 2, slotMidY - slotH / 2, slotW, slotH, 8)
+          ctx.stroke(); ctx.setLineDash([])
+        }
+      })
     })
+
+    rowY += groupH
   })
 
-  // Thin rule above footer
-  const FTR_Y = BODY_BOT + 2
-  ctx.strokeStyle = hexToRgba(primary, 0.3)
+  // Bottom border of field section
+  ctx.strokeStyle = hexToRgba(primary, 0.38)
+  ctx.lineWidth = 1.5
+  ctx.beginPath()
+  ctx.moveTo(0, FIELD_BOT); ctx.lineTo(W, FIELD_BOT)
+  ctx.stroke()
+
+  // ── Interchange ──────────────────────────────────────────────────────────────
+  const INT_TOP   = FIELD_BOT + 10
+  const INT_HDR_H = 30
+  const INT_H     = INT_HDR_H + 90
+
+  ctx.fillStyle = hexToRgba(primary, 0.08)
+  ctx.fillRect(0, INT_TOP, W, INT_H)
+  ctx.fillStyle = hexToRgba(primary, 0.24)
+  ctx.fillRect(0, INT_TOP, W, INT_HDR_H)
+  ctx.fillStyle = primary
+  ctx.fillRect(0, INT_TOP, 5, INT_HDR_H)
+  ctx.fillRect(W - 5, INT_TOP, 5, INT_HDR_H)
+  ctx.fillStyle = '#ffffff'
+  ctx.font = '700 16px Oswald, Arial Narrow, Arial, sans-serif'
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle'
+  ctx.fillText('INTERCHANGE', W / 2, INT_TOP + INT_HDR_H / 2)
+
+  const intTop = INT_TOP + INT_HDR_H
+  COL4.forEach((colX, i) => {
+    const posKey = INTERCHANGE_KEYS[i]
+    const player = playerById[lineup.positions[posKey]] ?? null
+    if (player) {
+      ctx.fillStyle = 'rgba(255,255,255,0.32)'
+      ctx.font = '700 10px Inter, Arial, sans-serif'
+      ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic'
+      ctx.fillText('INT', colX, intTop + 13)
+      ctx.fillStyle = hexToRgba(primary, 0.85)
+      ctx.font = '700 26px Oswald, Arial Narrow, Arial, sans-serif'
+      ctx.fillText(String(player.number), colX, intTop + 44)
+      ctx.fillStyle = '#ffffff'
+      ctx.shadowColor = 'rgba(0,0,0,0.4)'; ctx.shadowBlur = 6; ctx.shadowOffsetY = 1
+      drawAutoName(ctx, getDisplayName(player, displayMode).toUpperCase(), colX, intTop + 80, 200, 36, 18)
+      ctx.shadowColor = 'transparent'; ctx.shadowBlur = 0; ctx.shadowOffsetY = 0
+    } else {
+      ctx.fillStyle = 'rgba(255,255,255,0.03)'
+      roundRect(ctx, colX - 85, intTop + 12, 170, 64, 8); ctx.fill()
+      ctx.strokeStyle = 'rgba(255,255,255,0.08)'; ctx.lineWidth = 1
+      ctx.setLineDash([5, 4]); roundRect(ctx, colX - 85, intTop + 12, 170, 64, 8)
+      ctx.stroke(); ctx.setLineDash([])
+    }
+  })
+
+  // ── Emergencies ──────────────────────────────────────────────────────────────
+  const EMG_TOP   = INT_TOP + INT_H + 8
+  const EMG_HDR_H = 26
+  const EMG_H     = EMG_HDR_H + 54
+
+  ctx.fillStyle = hexToRgba(primary, 0.05)
+  ctx.fillRect(0, EMG_TOP, W, EMG_H)
+  ctx.fillStyle = hexToRgba(primary, 0.18)
+  ctx.fillRect(0, EMG_TOP, W, EMG_HDR_H)
+  ctx.fillStyle = primary
+  ctx.fillRect(0, EMG_TOP, 5, EMG_HDR_H)
+  ctx.fillRect(W - 5, EMG_TOP, 5, EMG_HDR_H)
+  ctx.fillStyle = '#ffffff'
+  ctx.font = '700 14px Oswald, Arial Narrow, Arial, sans-serif'
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle'
+  ctx.fillText('EMERGENCIES', W / 2, EMG_TOP + EMG_HDR_H / 2)
+
+  const emgTop = EMG_TOP + EMG_HDR_H
+  COL3.forEach((colX, i) => {
+    const posKey = EMERGENCY_KEYS[i]
+    const player = playerById[lineup.positions[posKey]] ?? null
+    if (player) {
+      ctx.fillStyle = 'rgba(255,255,255,0.28)'
+      ctx.font = '700 9px Inter, Arial, sans-serif'
+      ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic'
+      ctx.fillText('EMG', colX, emgTop + 11)
+      ctx.fillStyle = hexToRgba(primary, 0.82)
+      ctx.font = '700 22px Oswald, Arial Narrow, Arial, sans-serif'
+      ctx.fillText(String(player.number), colX, emgTop + 34)
+      ctx.fillStyle = 'rgba(255,255,255,0.9)'
+      ctx.shadowColor = 'rgba(0,0,0,0.35)'; ctx.shadowBlur = 5
+      drawAutoName(ctx, getDisplayName(player, displayMode).toUpperCase(), colX, emgTop + 52, 240, 30, 16)
+      ctx.shadowColor = 'transparent'; ctx.shadowBlur = 0
+    } else {
+      ctx.fillStyle = 'rgba(255,255,255,0.14)'
+      ctx.font = '400 13px Inter, Arial, sans-serif'
+      ctx.textAlign = 'center'; ctx.textBaseline = 'middle'
+      ctx.fillText('—', colX, emgTop + 27)
+    }
+  })
+
+  const FTR_Y = EMG_TOP + EMG_H + 6
+  ctx.strokeStyle = hexToRgba(primary, 0.25)
   ctx.lineWidth = 2
   ctx.beginPath()
   ctx.moveTo(0, FTR_Y); ctx.lineTo(W, FTR_Y)
